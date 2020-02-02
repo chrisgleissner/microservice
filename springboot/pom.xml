@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.github.chrisgleissner.microservice</groupId>
-    <artifactId>microservice-springboot</artifactId>
+    <artifactId>springboot-microservice</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>

@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
    <groupId>com.github.chrisgleissner.microservice</groupId>
-   <artifactId>microservice-thorntail</artifactId>
+   <artifactId>thorntail-microservice</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
