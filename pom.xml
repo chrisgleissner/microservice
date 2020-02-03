@@ -9,6 +9,6 @@
 
     <modules>
         <module>springboot</module>
-        <module>thorntail</module>
+<!--        <module>thorntail</module>-->
     </modules>
 </project>
