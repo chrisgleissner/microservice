@@ -23,5 +23,6 @@ Implemented so far:
 | DB schema generation | Yes (Flyway)              |           |               |
 | Security             | No                        |           |               |
 | Unit Tests           | Yes (JUnit 5)             |           |               |
-| Integration Tests    | Yes (JUnit 5)             |           | Yes (JUnit 4) |      |
+| Integration Tests    | Yes (JUnit 5)             |           | Yes (JUnit 4) |
+| Docker               |                           |           | Yes           |
 
