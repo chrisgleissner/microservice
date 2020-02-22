@@ -20,7 +20,7 @@ Implemented so far:
 | Company REST API     | Yes (Spring Data REST)    |              |               |
 | User REST API        | Yes (Spring Web)          |              |               |
 | DB schema generation | Yes (Flyway)              |              |               |
-| Security             | No                        |              |               |
+| Security             |                           |              |               |
 | Unit Tests           | Yes                       | Yes          |               |
 | Integration Tests    | Yes                       | Yes          | Yes           |
 | Docker               |                           | Yes          | Yes           |
