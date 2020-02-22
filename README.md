@@ -3,8 +3,8 @@
 [![Build Status](https://travis-ci.org/chrisgleissner/microservice.svg?branch=master)](https://travis-ci.org/chrisgleissner/microservice)
 
 This repository contains simple REST-based based microservices running on Java 11 and implemented in the following technologies:
-* [Spring Boot](https://github.com/spring-projects/spring-boot) 2.3
-* [Thorntail](https://github.com/thorntail/thorntail)
+* [Quarkus](https://github.com/quarkusio/quarkus)
+* [Spring Boot](https://github.com/spring-projects/spring-boot)
 * [Wildfly](https://github.com/wildfly/wildfly)
 
 The aim is to provide the following features for all examined services:
