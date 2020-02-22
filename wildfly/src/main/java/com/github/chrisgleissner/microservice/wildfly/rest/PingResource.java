@@ -6,12 +6,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 @Path("/ping")
-public class PingController {
+public class PingResource {
+
 	@Inject
-	private PingService service;
+	PingService pingService;
 
 	@GET
 	@Produces({ "application/json" })
 	public String ping() {
-		return "{\"pong\":\"" + service.currentTimeMillis() + "\"}";
+		return "{\"pong\":\"" + pingService.currentTimeMillis() + "\"}";
 	}}

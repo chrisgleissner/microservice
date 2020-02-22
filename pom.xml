@@ -10,6 +10,6 @@
     <modules>
         <module>springboot</module>
         <module>wildfly</module>
-<!--        <module>thorntail</module>-->
+        <module>quarkus</module>
     </modules>
 </project>

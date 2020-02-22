@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.not;
 
 
 
-public class PingControllerIT {
+public class PingResourceIT {
 
     @Test
     public void ping() {
