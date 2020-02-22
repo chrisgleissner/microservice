@@ -15,14 +15,14 @@ The aim is to provide the following features for all examined services:
 
 Implemented so far:
 
-| Feature              | Spring Boot               | Thorntail | Wildfly       |
-|----------------------|---------------------------|-----------|---------------|
-| Ping REST API        |               |           |           | Yes (JAX-RS)  |
-| Company REST API     | Yes (Spring Data REST)    |           |               |
-| User REST API        | Yes (Spring Web)          |           |               |
-| DB schema generation | Yes (Flyway)              |           |               |
-| Security             | No                        |           |               |
-| Unit Tests           | Yes (JUnit 5)             |           |               |
-| Integration Tests    | Yes (JUnit 5)             |           | Yes (JUnit 4) |
-| Docker               |                           |           | Yes           |
+| Feature              | Spring Boot               | Quarkus      | Wildfly       |
+|----------------------|---------------------------|--------------|---------------|
+| Ping REST API        |                           | Yes (JAX-RS) | Yes (JAX-RS)  |
+| Company REST API     | Yes (Spring Data REST)    |              |               |
+| User REST API        | Yes (Spring Web)          |              |               |
+| DB schema generation | Yes (Flyway)              |              |               |
+| Security             | No                        |              |               |
+| Unit Tests           | Yes                       | Yes          |               |
+| Integration Tests    | Yes                       | Yes          | Yes           |
+| Docker               |                           | Yes          | Yes           |
 
