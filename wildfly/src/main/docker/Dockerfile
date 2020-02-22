@@ -1,6 +1,6 @@
 FROM amazoncorretto:11
 
-RUN yum update -y && yum -y install shadow-utils.x86_64 tar gzip xmlstarlet saxon augeas bsdtar unzip && yum clean all
+RUN yum update -y && yum -y install shadow-utils.x86_64 ps tar gzip xmlstarlet saxon augeas bsdtar unzip && yum clean all
 
 # Create a user and group used to launch processes
 # The user ID 1000 is the default for the first "regular" user on Fedora/RHEL,
@@ -20,7 +20,7 @@ RUN cd $HOME \
     && sha1sum wildfly-$WILDFLY_VERSION.tar.gz | grep $WILDFLY_SHA1 \
     && tar xf wildfly-$WILDFLY_VERSION.tar.gz \
     && mkdir -p $JBOSS_HOME \
-    && mv $HOME/wildfly-$WILDFLY_VERSION $JBOSS_HOME \
+    && mv $HOME/wildfly-$WILDFLY_VERSION/* $JBOSS_HOME \
     && rm wildfly-$WILDFLY_VERSION.tar.gz \
     && chown -R jboss:0 ${JBOSS_HOME} \
     && chmod -R g+rw ${JBOSS_HOME}
