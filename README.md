@@ -1,6 +1,6 @@
 # JVM Microservice Examples
 
-[![Build Status](https://travis-ci.org/chrisgleissner/microservice.svg?branch=master)](https://travis-ci.org/chrisgleissner/microservice)
+[![Build Status](https://travis-ci.com/chrisgleissner/microservice.svg?branch=master)](https://travis-ci.com/chrisgleissner/microservice)
 
 This repository contains simple REST-based Java 11 microservices for Quarkus, Spring Boot, and Wildfly. 
 
