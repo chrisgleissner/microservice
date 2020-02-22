@@ -12,7 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class) @RestIT
-class PingIT {
+class PingControllerIT {
     @Autowired TestRestTemplate template;
 
     @Test
