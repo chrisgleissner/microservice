@@ -1,4 +1,4 @@
-package com.github.chrisgleissner.microservice.ping;
+package com.github.chrisgleissner.microservice.quarkus.ping;
 
 import io.quarkus.test.junit.NativeImageTest;
 
