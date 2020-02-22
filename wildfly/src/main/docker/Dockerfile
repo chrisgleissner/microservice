@@ -31,6 +31,5 @@ ENV LAUNCH_JBOSS_IN_BACKGROUND true
 USER jboss
 EXPOSE 8080
 
-COPY target/wildfly-microservice*.war /opt/jboss/wildfly/standalone/deployments/
-
+ADD maven/ /opt/jboss/wildfly/standalone/deployments/
 CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0"]
