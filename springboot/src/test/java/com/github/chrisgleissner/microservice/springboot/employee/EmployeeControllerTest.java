@@ -1,8 +1,9 @@
-package com.github.chrisgleissner.microservice.springboot.rest;
+package com.github.chrisgleissner.microservice.springboot.employee;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.chrisgleissner.microservice.springboot.entity.Employee;
-import com.github.chrisgleissner.microservice.springboot.repository.EmployeeRepository;
+import com.github.chrisgleissner.microservice.springboot.employee.Employee;
+import com.github.chrisgleissner.microservice.springboot.employee.EmployeeController;
+import com.github.chrisgleissner.microservice.springboot.employee.EmployeeRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

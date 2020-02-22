@@ -1,4 +1,4 @@
-package com.github.chrisgleissner.microservice.springboot.entity;
+package com.github.chrisgleissner.microservice.springboot.employee;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

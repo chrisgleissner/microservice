@@ -1,5 +1,6 @@
-package com.github.chrisgleissner.microservice.springboot.rest;
+package com.github.chrisgleissner.microservice.springboot.ping;
 
+import com.github.chrisgleissner.microservice.springboot.rest.RestIT;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +12,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class) @RestIT
-class CompanyRepositoryIT {
-
+class PingIT {
     @Autowired TestRestTemplate template;
 
     @Test
-    void findAllReturnsHateaosResponse() {
-        ResponseEntity<String> responseEntity = template.getForEntity("/api/company", String.class);
+    void ping() {
+        ResponseEntity<String> responseEntity = template.getForEntity("/api/ping", String.class);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        String responseString = responseEntity.getBody();
-        assertThat(responseString).startsWith("{\n  \"_embedded\" : {");
-        assertThat(responseString).contains("Foo", "Bar");
+        assertThat(responseEntity.getBody()).isNotEmpty();
     }
 }

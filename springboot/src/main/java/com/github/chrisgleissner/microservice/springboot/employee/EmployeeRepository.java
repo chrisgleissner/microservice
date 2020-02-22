@@ -1,6 +1,5 @@
-package com.github.chrisgleissner.microservice.springboot.repository;
+package com.github.chrisgleissner.microservice.springboot.employee;
 
-import com.github.chrisgleissner.microservice.springboot.entity.Employee;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 

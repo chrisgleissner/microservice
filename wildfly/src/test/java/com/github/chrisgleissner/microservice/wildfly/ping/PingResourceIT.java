@@ -1,4 +1,4 @@
-package com.github.chrisgleissner.microservice.wildfly.rest;
+package com.github.chrisgleissner.microservice.wildfly.ping;
 
 import org.junit.Test;
 

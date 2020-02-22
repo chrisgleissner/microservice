@@ -1,6 +1,5 @@
-package com.github.chrisgleissner.microservice.springboot.repository;
+package com.github.chrisgleissner.microservice.springboot.company;
 
-import com.github.chrisgleissner.microservice.springboot.entity.Company;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

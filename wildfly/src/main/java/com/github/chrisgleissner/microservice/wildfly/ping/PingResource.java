@@ -1,4 +1,4 @@
-package com.github.chrisgleissner.microservice.wildfly.rest;
+package com.github.chrisgleissner.microservice.wildfly.ping;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -12,7 +12,8 @@ public class PingResource {
 	PingService pingService;
 
 	@GET
-	@Produces({ "application/json" })
+	@Produces({"application/json"})
 	public String ping() {
 		return "{\"pong\":\"" + pingService.currentTimeMillis() + "\"}";
-	}}
+	}
+}

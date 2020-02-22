@@ -1,6 +1,6 @@
-package com.github.chrisgleissner.microservice.springboot.rest;
+package com.github.chrisgleissner.microservice.springboot.employee;
 
-import com.github.chrisgleissner.microservice.springboot.entity.Employee;
+import com.github.chrisgleissner.microservice.springboot.rest.RestIT;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

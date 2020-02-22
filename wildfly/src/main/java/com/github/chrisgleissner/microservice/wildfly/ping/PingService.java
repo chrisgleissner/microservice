@@ -1,6 +1,6 @@
-package com.github.chrisgleissner.microservice.rest;
+package com.github.chrisgleissner.microservice.wildfly.ping;
 
-import javax.inject.Singleton;
+import javax.ejb.Singleton;
 
 @Singleton
 class PingService {
