@@ -1,11 +1,11 @@
 create table company (
-    id int not null auto_increment,
+    id bigint not null auto_increment,
     name varchar,
     sector int
 );
 
 create table employee (
-    id int not null auto_increment,
+    id bigint not null auto_increment,
     company_id int,
     firstname varchar,
     lastname varchar,
@@ -13,8 +13,8 @@ create table employee (
 );
 
 create table company_employee (
-    id int not null auto_increment,
-    company_id int,
-    employee_id int
+    id bigint not null auto_increment,
+    company_id bigint,
+    employee_id bigint
 );
 
