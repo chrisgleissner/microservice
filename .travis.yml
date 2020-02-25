@@ -3,7 +3,12 @@ language: java
 sudo: false
 jdk:
   - openjdk11
+cache:
+  directories:
+    - $HOME/.m2
 script:
 - mvn -f springboot/pom.xml clean install
 - mvn -f wildfly/pom.xml clean install -Pdocker
-- mvn -f quarkus/pom.xml package quarkus:build && mvn -Pnative -Dnative-image.docker-build=true && docker-compose -f src/main/docker/docker-compose.yml build app
+- mvn -f quarkus/pom.xml package quarkus:build
+  && mvn -f quarkus/pom.xml -Pnative -Dnative-image.docker-build=true
+  && docker-compose -f quarkus/src/main/docker/docker-compose.yml build app
