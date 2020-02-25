@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.native
+    ports:
+      - "8080:8080"
+    restart: on-failure
+    depends_on:
+      - db
+  db:
+    image: "postgres:11.7-alpine"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: quarkus
+      POSTGRES_USER: quarkus
+      POSTGRES_PASSWORD: quarkus
+    volumes:
+      - quarkus_data:/var/lib/postgresql/data
+volumes:
+  quarkus_data:

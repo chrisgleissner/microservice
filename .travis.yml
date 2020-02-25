@@ -1,11 +1,9 @@
+dist: bionic
 language: java
-
-cache:
-  directories:
-  - $HOME/.m2
-
+sudo: false
 jdk:
-- openjdk11
-
+  - openjdk11
 script:
-- mvn clean install
+- mvn -f springboot/pom.xml clean install
+- mvn -f wildfly/pom.xml clean install -Pdocker
+- mvn -f quarkus/pom.xml package quarkus:build && mvn -Pnative -Dnative-image.docker-build=true && docker-compose -f src/main/docker/docker-compose.yml build app
