@@ -1,3 +1,5 @@
+create sequence hibernate_sequence;
+
 create table company (
     id bigint not null auto_increment,
     name varchar,

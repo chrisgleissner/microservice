@@ -1,28 +1,20 @@
 package com.github.chrisgleissner.microservice.quarkus.employee;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Value;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
 
-@Entity
-public class Employee extends PanacheEntityBase {
-    @Id
-    @Column( name = "id" )
-    public Long id;
-    public String firstname;
-    public String lastname;
-    public LocalDate birthday;
+import static lombok.AccessLevel.PRIVATE;
 
-    public static Optional<Employee> findById(Long id){
-        return find("id", id).firstResultOptional();
-    }
-
-    public static List<Employee> findByLastName(String lastName) {
-        return find("select u from Employee u where lower(u.lastname) = lower(?1)", lastName).list();
-    }
+@Entity @Value @AllArgsConstructor @NoArgsConstructor(access = PRIVATE, force = true)
+public class Employee {
+    @Id @GeneratedValue Long id;
+    String firstname;
+    String lastname;
+    LocalDate birthday;
 }

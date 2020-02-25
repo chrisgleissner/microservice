@@ -1,5 +1,11 @@
 package com.github.chrisgleissner.microservice.quarkus.employee;
 
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -8,18 +14,29 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.Optional;
 
-@Path("employee") @Produces(MediaType.APPLICATION_JSON)
+@Path("employee")
+@Produces(MediaType.APPLICATION_JSON) @RequiredArgsConstructor
 public class EmployeeResource {
+	private final EntityManager em;
 
 	@GET @Path("/{id}")
-	public Employee findById(@PathParam("{id}") Long id) {
-		return Employee.findById(id).orElseThrow(() -> new WebApplicationException("Can't find employee by ID " + id, Response.Status.NOT_FOUND));
+	public Employee findById(@PathParam("id") Long id) {
+		return Optional.ofNullable(em.find(Employee.class, id))
+				.orElseThrow(() -> new WebApplicationException("Can't find employee by ID " + id, Response.Status.NOT_FOUND));
 	}
 
 	@GET
-	public Iterable<Employee> findAll(@QueryParam("lastName") String lastName) {
-		return Optional.ofNullable(lastName).map(Employee::findByLastName).orElseGet(Employee::listAll);
+	public List<Employee> findAll(@QueryParam("lastName") String lastName) {
+		return Optional.ofNullable(lastName)
+				.map(n -> em.createQuery("from Employee u where lower(u.lastname) = lower(?1)", Employee.class).setParameter(1, n))
+				.orElseGet(() -> em.createQuery("from Employee", Employee.class)).getResultList();
+	}
+
+	@GET
+	public List<Employee> employees() {
+		return em.createQuery("from Employee", Employee.class).getResultList();
 	}
 }
