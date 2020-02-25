@@ -8,9 +8,9 @@ cache:
   directories:
     - $HOME/.m2
 env:
-  #- MVN_ARGS=-f quarkus/pom.xml package -Dquarkus.profile=dev && mvn -f quarkus/pom.xml -Pnative -Dnative-image.docker-build=true && docker-compose -f quarkus/src/main/docker/docker-compose.yml build app
-  - MVN_ARGS="-f quarkus/pom.xml clean install"
-  - MVN_ARGS="-f springboot/pom.xml clean install"
-  - MVN_ARGS="-f wildfly/pom.xml clean install -Pwildfly"
-  - MVN_ARGS="-f wildfly/pom.xml clean install -Pdocker"
-script: "mvn $MVN_ARGS"
+  #- MVN_ARGS="quarkus/pom.xml install && mvn -f quarkus/pom.xml -Pnative -Dnative-image.docker-build=true && docker-compose -f quarkus/src/main/docker/docker-compose.yml build app"
+  - MVN_ARGS="quarkus/pom.xml install && mvn -f quarkus/pom.xml -Pnative -Dnative-image.docker-build=true"
+  - MVN_ARGS="springboot/pom.xml install"
+  - MVN_ARGS="wildfly/pom.xml install -Pwildfly"
+  - MVN_ARGS="wildfly/pom.xml install -Pdocker"
+script: "mvn -f $MVN_ARGS"
