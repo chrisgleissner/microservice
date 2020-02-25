@@ -1,6 +1,7 @@
 dist: bionic
 language: java
 sudo: false
+install: true
 jdk:
   - openjdk11
 cache:
