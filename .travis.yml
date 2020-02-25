@@ -9,6 +9,6 @@ cache:
 script:
 - mvn -f springboot/pom.xml clean install
 - mvn -f wildfly/pom.xml clean install -Pdocker
-- mvn -f quarkus/pom.xml package quarkus:build
+- mvn -f quarkus/pom.xml -Dquarkus.profile=dev package quarkus:build
   && mvn -f quarkus/pom.xml -Pnative -Dnative-image.docker-build=true
   && docker-compose -f quarkus/src/main/docker/docker-compose.yml build app

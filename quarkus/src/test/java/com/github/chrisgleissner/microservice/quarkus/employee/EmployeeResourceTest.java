@@ -47,4 +47,10 @@ class EmployeeResourceTest {
         assertThat(employees).isNotEmpty();
         assertThat(employees).allSatisfy(e -> assertThat(e.getLastname()).isEqualToIgnoringCase("doe"));
     }
+
+    @Test
+    void metricsAreExposed() {
+        assertThat(get("/metrics/application").then().assertThat().statusCode(200).extract().asString())
+                .contains("application_com_github_chrisgleissner_microservice_quarkus_employee_EmployeeResource_findById_rate_per_second");
+    }
 }
