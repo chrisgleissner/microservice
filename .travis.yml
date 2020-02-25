@@ -9,9 +9,9 @@ cache:
     - $HOME/.m2
 env:
   #- MVN_ARGS="quarkus/pom.xml install && mvn -f quarkus/pom.xml -Pnative -Dnative-image.docker-build=true && docker-compose -f quarkus/src/main/docker/docker-compose.yml build app"
-  - SCRIPT="mvn -f quarkus/pom.xml install"
-  - SCRIPT="mvn -f quarkus/pom.xml -Pnative -Dnative-image.docker-build=true"
-  - SCRIPT="mvn -f springboot/pom.xml install"
-  - SCRIPT="mvn -f wildfly/pom.xml install -Pwildfly"
-  - SCRIPT="mvn -f wildfly/pom.xml install -Pdocker"
+  - SCRIPT="mvn -f quarkus/pom.xml package"
+  - SCRIPT="mvn -f quarkus/pom.xml package -Pnative -Dnative-image.docker-build=true"
+  - SCRIPT="mvn -f springboot/pom.xml package"
+  - SCRIPT="mvn -f wildfly/pom.xml package -Pwildfly"
+  - SCRIPT="mvn -f wildfly/pom.xml package -Pdocker"
 script: $SCRIPT
