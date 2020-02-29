@@ -23,5 +23,6 @@ Implemented so far:
 | Security             |                           |              |               |
 | Unit Tests           | Yes                       | Yes          |               |
 | Integration Tests    | Yes                       | Yes          | Yes           |
+| Swagger              | Yes                       | Yes          | Yes           |
 | Docker               |                           |              | Yes           |
 

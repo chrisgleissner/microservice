@@ -17,7 +17,7 @@ import java.util.Optional;
 
 import static org.eclipse.microprofile.metrics.MetricUnits.MILLISECONDS;
 
-@Path("employee")
+@Path("/employee")
 @Produces(MediaType.APPLICATION_JSON) @RequiredArgsConstructor
 public class EmployeeResource {
     private final EntityManager em;
@@ -34,10 +34,5 @@ public class EmployeeResource {
         return Optional.ofNullable(lastName)
                 .map(n -> em.createQuery("from Employee u where lower(u.lastname) = lower(?1)", Employee.class).setParameter(1, n))
                 .orElseGet(() -> em.createQuery("from Employee", Employee.class)).getResultList();
-    }
-
-    @GET
-    public List<Employee> employees() {
-        return em.createQuery("from Employee", Employee.class).getResultList();
     }
 }
