@@ -10,7 +10,7 @@ cache:
 env:
   #- MVN_ARGS="quarkus/pom.xml install && mvn -f quarkus/pom.xml -Pnative -Dnative-image.docker-build=true && docker-compose -f quarkus/src/main/docker/docker-compose.yml build app"
   - SCRIPT="mvn -f quarkus/pom.xml package"
-  - SCRIPT="wget https://github.com/sormuras/bach/raw/master/install-jdk.sh; JDK='GraalVM 19'; ./install-jdk.sh --url "https://github.com/oracle/graal/releases/download/vm-19.2.0/graalvm-ce-linux-amd64-19.2.0.tar.gz; mvn -f quarkus/pom.xml package -Pnative -Dnative-image.docker-build=true"
+  - SCRIPT="wget https://github.com/sormuras/bach/raw/master/install-jdk.sh; JDK='GraalVM 19'; ./install-jdk.sh --url https://github.com/oracle/graal/releases/download/vm-19.2.0/graalvm-ce-linux-amd64-19.2.0.tar.gz; mvn -f quarkus/pom.xml package -Pnative -Dnative-image.docker-build=true"
   - SCRIPT="mvn -f springboot/pom.xml package"
   - SCRIPT="mvn -f wildfly/pom.xml package -Pwildfly"
   - SCRIPT="mvn -f wildfly/pom.xml package -Pdocker"
