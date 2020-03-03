@@ -20,7 +20,7 @@ Implemented so far:
 | Company REST API     | Yes (Spring Data REST)    |              |               |
 | Employee REST API    | Yes (Spring Web)          | Yes (JAX-RS) |               |
 | DB schema generation | Yes (Flyway)              | Yes (Flyway) |               |
-| Security             |                           |              |               |
+| JWT Security         |                           | Yes          |               |
 | Unit Tests           | Yes                       | Yes          |               |
 | Integration Tests    | Yes                       | Yes          | Yes           |
 | Swagger              | Yes                       | Yes          | Yes           |
