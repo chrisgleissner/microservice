@@ -1,25 +1,29 @@
 package com.github.chrisgleissner.microservice.quarkus.securedping;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import static com.github.chrisgleissner.microservice.quarkus.jwt.JwtTokenGenerator.createAuthorizationHeader;
-import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@QuarkusTest
-class SecuredPingResourceTest {
+@QuarkusTest @Slf4j
+public class SecuredPingResourceTest {
 
     @Test
-    void ping() {
-        given().header("Authorization", createAuthorizationHeader())
+    public void ping() {
+        String body = given().log().all().header("Authorization", createAuthorizationHeader())
                 .when().get("/api/securedPing")
-                .then().statusCode(200);
+                .then().statusCode(200).extract().asString();
+        log.info("Response body: {}", body);
+        assertThat(body).isEqualTo("hello + jdoe@quarkus.io, isSecure: false, authScheme: Bearer, hasJWT: true");
     }
 
     @Test
-    void pingNotAuthorized() {
-        get("/api/securedPing").then().statusCode(401);
+    public void pingNotAuthorized() {
+        given().log().all()
+                .when().get("/api/securedPing")
+                .then().statusCode(401);
     }
 }
