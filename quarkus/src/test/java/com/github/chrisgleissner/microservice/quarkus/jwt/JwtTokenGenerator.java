@@ -15,6 +15,10 @@ public class JwtTokenGenerator {
     private static final String CLAIMS_FILE_PATH = "/jwtClaims.json";
     private static final String PRIVATE_KEY_PEM_PATH = "/privateKey.pem";
 
+    public static String createAuthorizationHeader() {
+        return "Bearer " + createJwtToken(CLAIMS_FILE_PATH, 300);
+    }
+
     public static String createJwtToken(String claimsFilePath, long lifetimeInSeconds) {
         long currentTimeInSecs = (int) (currentTimeMillis() / 1000);
         return Jwt.claims(claimsFilePath)
