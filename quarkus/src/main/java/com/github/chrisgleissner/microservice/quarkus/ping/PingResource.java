@@ -14,7 +14,7 @@ public class PingResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String hello() throws InterruptedException {
+    public String ping() throws InterruptedException {
         Thread.sleep(pingConfig.getResponseDelayInMillis());
         return String.format("{\"%s\":\"%s\"}", pingConfig.getResponseMessage(), pingService.currentTimeMillis());
     }
