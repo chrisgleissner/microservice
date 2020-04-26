@@ -1,7 +1,6 @@
-package com.github.chrisgleissner.microservice.springboot.rest.security.jwt.create;
+package com.github.chrisgleissner.microservice.springboot.rest.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.NoArgsConstructor;
@@ -21,23 +20,33 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 
+import static com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig.AUTHORITIES_CLAIM;
 import static com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig.AUTHORIZATION_HEADER_NAME;
 import static com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig.AUTHORIZATION_TOKEN_PREFIX;
+import static com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig.LOGIN_PATH;
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 
 /**
- * Listens on /login and converts a username/password combination into a JWT which gets returned on the response header.
+ * Creates a JWT based on a username and password.
  */
-@RequiredArgsConstructor @Slf4j
-public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter   {
+@Slf4j
+public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+    private final ObjectMapper objectMapper;
     private final AuthenticationManager authManager;
     private final JwtConfig jwtConfig;
+
+    public JwtUsernameAndPasswordAuthenticationFilter(ObjectMapper objectMapper, AuthenticationManager authManager, JwtConfig jwtConfig) {
+        this.objectMapper = objectMapper;
+        this.authManager = authManager;
+        this.jwtConfig = jwtConfig;
+        setFilterProcessesUrl(LOGIN_PATH);
+    }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
-            final UserCredentials creds = new ObjectMapper().readValue(request.getInputStream(), UserCredentials.class);
+            final UserCredentials creds = objectMapper.readValue(request.getInputStream(), UserCredentials.class);
             return authManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(), creds.getPassword(), emptyList()));
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -52,7 +61,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
         final long millisSinceEpoch = System.currentTimeMillis();
         final String token = Jwts.builder()
                 .setSubject(authenticatedUser.getName())
-                .claim("authorities", authenticatedUser.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(toList()))
+                .claim(AUTHORITIES_CLAIM, authenticatedUser.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(toList()))
                 .setIssuedAt(new Date(millisSinceEpoch))
                 .setExpiration(new Date(millisSinceEpoch + jwtConfig.getExpiration() * 1000))  // in milliseconds
                 .signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())

@@ -12,21 +12,17 @@ import org.springframework.stereotype.Service;
 
 @Service @RequiredArgsConstructor @Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private final BCryptPasswordEncoder passwordEncoder;
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        for (AppUser appUser : AppUserRepo.users(passwordEncoder)) {
-            if (appUser.getUsername().equals(username)) {
-                return new User(appUser.getUsername(), appUser.getPassword(),
-                        AuthorityUtils.commaSeparatedStringToAuthorityList(springRoleName(appUser.getRole())));
-            }
-        }
-        throw new UsernameNotFoundException("Username: " + username + " not found");
-    }
+    private final AppUserRepo appUserRepo;
 
     // Spring requires "ROLE_" prefix for all roles, e.g. "ROLE_ADMIN" means hasRole("ADMIN") passes
     private static String springRoleName(String roleName) {
         return "ROLE_" + roleName;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return appUserRepo.findByUsername(username)
+                .map(u -> new User(u.getUsername(), u.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList(springRoleName(u.getRole()))))
+                .orElseThrow(() -> new UsernameNotFoundException("Username: " + username + " not found"));
     }
 }

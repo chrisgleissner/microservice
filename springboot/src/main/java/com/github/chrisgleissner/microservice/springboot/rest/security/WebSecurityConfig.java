@@ -1,9 +1,9 @@
 package com.github.chrisgleissner.microservice.springboot.rest.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig;
-import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.create.JwtUsernameAndPasswordAuthenticationFilter;
-import com.github.chrisgleissner.microservice.springboot.rest.security.user.Roles;
-import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.verify.JwtTokenAuthenticationFilter;
+import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtUsernameAndPasswordAuthenticationFilter;
+import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtTokenAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,11 +15,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig.LOGIN_PATH;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 import static org.springframework.http.HttpMethod.POST;
 
 @EnableWebSecurity @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private final ObjectMapper objectMapper;
     private final JwtConfig jwtConfig;
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder passwordEncoder;
@@ -31,13 +33,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(SC_UNAUTHORIZED))
 
-                .and().addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig)) // for issue side
+                .and().addFilter(new JwtUsernameAndPasswordAuthenticationFilter(objectMapper, authenticationManager(), jwtConfig))
                 .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
 
                 .authorizeRequests()
-                .antMatchers(POST, jwtConfig.getUri()).permitAll() // allow all who are accessing "/login"
-                .antMatchers("/api/admin/**").hasRole(Roles.ADMIN_ROLE) // must be a authenticated and an admin for '/api/admin'
-                .anyRequest().authenticated(); // Any other request must be authenticated
+                .antMatchers(POST, LOGIN_PATH).permitAll()
+                .anyRequest().authenticated();
     }
 
     @Override

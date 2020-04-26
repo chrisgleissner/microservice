@@ -1,7 +1,7 @@
 package com.github.chrisgleissner.microservice.springboot.fixture;
 
 import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig;
-import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.create.JwtUsernameAndPasswordAuthenticationFilter;
+import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtUsernameAndPasswordAuthenticationFilter.UserCredentials;
 import com.github.chrisgleissner.microservice.springboot.rest.security.user.AppUserRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -12,7 +12,8 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static com.github.chrisgleissner.microservice.springboot.rest.security.user.AppUserRepo.*;
+import static com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig.LOGIN_PATH;
+import static com.github.chrisgleissner.microservice.springboot.rest.security.user.AppUserRepo.ADMIN_APP_USER;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
@@ -28,8 +29,8 @@ public class JwtFixture {
 
     private static HttpHeaders jwt(TestRestTemplate testRestTemplate, String username, String password) {
         try {
-            ResponseEntity<String> responseEntity = testRestTemplate.postForEntity("/login",
-                    new JwtUsernameAndPasswordAuthenticationFilter.UserCredentials(username, password), String.class);
+            ResponseEntity<String> responseEntity = testRestTemplate.postForEntity(LOGIN_PATH,
+                    new UserCredentials(username, password), String.class);
             assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
             HttpHeaders headers = responseEntity.getHeaders();
             log.info("Got response headers: {}", headers);
