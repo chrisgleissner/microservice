@@ -4,7 +4,7 @@
 
 This repository contains simple REST-based Java 11 microservices for Quarkus, Spring Boot, and Wildfly. 
 
-The aim is to provide the following features for all examined services:
+The aim is to provide the following features for all services:
 * REST API for `company` and `employee` entities
 * DB schema generation
 * JWT-based Security
@@ -12,6 +12,8 @@ The aim is to provide the following features for all examined services:
 * Docker integration
 
 ## Features
+
+Implemented features:
 
 | Feature              | [Spring Boot](https://github.com/spring-projects/spring-boot) 2.3.0.M4 | [Quarkus](https://github.com/quarkusio/quarkus) 1.2.1.Final | [Wildfly](https://github.com/wildfly/wildfly) 18.0.1.Final |
 |----------------------|---------------------------|--------------|---------------|
