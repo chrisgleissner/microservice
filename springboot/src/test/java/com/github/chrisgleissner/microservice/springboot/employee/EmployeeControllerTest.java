@@ -2,6 +2,7 @@ package com.github.chrisgleissner.microservice.springboot.employee;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.chrisgleissner.microservice.springboot.rest.security.WebSecurityConfig;
+import com.github.chrisgleissner.microservice.springboot.rest.security.user.AppUserRepo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -20,8 +21,8 @@ import java.util.Optional;
 
 import static com.github.chrisgleissner.microservice.springboot.fixture.JsonFixture.fromJson;
 import static com.github.chrisgleissner.microservice.springboot.fixture.JsonFixture.json;
-import static com.github.chrisgleissner.microservice.springboot.rest.security.user.AppUserRepo.ADMIN_ROLE;
-import static com.github.chrisgleissner.microservice.springboot.rest.security.user.AppUserRepo.ADMIN_USER_NAME;
+import static com.github.chrisgleissner.microservice.springboot.rest.security.user.UserConstants.ADMIN_ROLE;
+import static com.github.chrisgleissner.microservice.springboot.rest.security.user.UserConstants.ADMIN_USER_NAME;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
@@ -43,6 +44,7 @@ class EmployeeControllerTest {
     @Autowired MockMvc mvc;
     @Autowired ObjectMapper objectMapper;
     @MockBean EmployeeRepository userRepository;
+    @MockBean AppUserRepo appUserRepo;
 
     @Test
     @WithMockUser

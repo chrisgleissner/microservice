@@ -13,14 +13,15 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import static com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig.LOGIN_PATH;
-import static com.github.chrisgleissner.microservice.springboot.rest.security.user.AppUserRepo.ADMIN_APP_USER;
+import static com.github.chrisgleissner.microservice.springboot.rest.security.user.UserConstants.ADMIN_APP_USER;
+import static com.github.chrisgleissner.microservice.springboot.rest.security.user.UserConstants.NORMAL_APP_USER;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 public class JwtFixture {
 
     public static HttpHeaders userJwt(TestRestTemplate testRestTemplate) {
-        return jwt(testRestTemplate, AppUserRepo.NORMAL_APP_USER.getUsername(), AppUserRepo.NORMAL_APP_USER.getPassword());
+        return jwt(testRestTemplate, NORMAL_APP_USER.getUsername(), NORMAL_APP_USER.getPassword());
     }
 
     public static HttpHeaders adminJwt(TestRestTemplate testRestTemplate) {

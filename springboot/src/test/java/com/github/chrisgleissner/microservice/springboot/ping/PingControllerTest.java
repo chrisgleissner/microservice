@@ -1,6 +1,7 @@
 package com.github.chrisgleissner.microservice.springboot.ping;
 
 import com.github.chrisgleissner.microservice.springboot.rest.security.WebSecurityConfig;
+import com.github.chrisgleissner.microservice.springboot.rest.security.user.AppUserRepo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class PingControllerTest {
     @Autowired MockMvc mvc;
     @MockBean PingService pingService;
+    @MockBean AppUserRepo appUserRepo;
 
     @Test
     void ping() throws Exception {
