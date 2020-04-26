@@ -13,7 +13,7 @@ public class JwtConfig {
     public static final String AUTHORIZATION_TOKEN_PREFIX = "Bearer ";
 
     @Value("${security.jwt.uri:/login/**}")
-    private String Uri;
+    private String uri;
 
     @Value("${security.jwt.expiration:#{24*60*60}}")
     private int expiration;

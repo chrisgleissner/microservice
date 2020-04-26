@@ -2,6 +2,7 @@ package com.github.chrisgleissner.microservice.springboot.rest.security.jwt.veri
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -27,32 +28,22 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        log.info("Invoked doFilterInternal()");
-        String header = request.getHeader(JwtConfig.AUTHORIZATION_HEADER_NAME);
-        if (header == null || !header.startsWith(JwtConfig.AUTHORIZATION_TOKEN_PREFIX)) {
-            chain.doFilter(request, response);
-            return;
-        }
-        final String token = header.replace(JwtConfig.AUTHORIZATION_TOKEN_PREFIX, "");
-        log.info("Got token: {}", token);
-        try {
-            Claims claims = Jwts.parser().setSigningKey(jwtConfig.getSecret().getBytes()).parseClaimsJws(token).getBody();
-            log.info("Obtained claims from token: {}", claims);
-            activateAuthenticatedUser(claims);
-        } catch (Exception e) {
-            SecurityContextHolder.clearContext();
+        final String header = request.getHeader(JwtConfig.AUTHORIZATION_HEADER_NAME);
+        if (header != null && header.startsWith(JwtConfig.AUTHORIZATION_TOKEN_PREFIX)) {
+            try {
+                final String token = header.replace(JwtConfig.AUTHORIZATION_TOKEN_PREFIX, "");
+                activateAuthenticatedUser(Jwts.parser().setSigningKey(jwtConfig.getSecret().getBytes()).parseClaimsJws(token).getBody());
+            } catch (Exception e) {
+                SecurityContextHolder.clearContext();
+            }
         }
         chain.doFilter(request, response);
     }
 
     private void activateAuthenticatedUser(Claims claims) {
-        log.info("Invoked activateAuthenticatedUser()");
-        String username = claims.getSubject();
-        if (username != null) {
-            List<SimpleGrantedAuthority> authorities = ((List<String>) claims.get("authorities")).stream().map(SimpleGrantedAuthority::new).collect(toList());
-            log.info("Activating authenticated user {} using {}", username, authorities);
-            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(username, null, authorities));
-            // User is now authenticated
-        }
+        Optional.ofNullable(claims.getSubject()).ifPresent(username -> {
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(username, null,
+                    ((List<String>) claims.get("authorities")).stream().map(SimpleGrantedAuthority::new).collect(toList())));
+        });
     }
 }

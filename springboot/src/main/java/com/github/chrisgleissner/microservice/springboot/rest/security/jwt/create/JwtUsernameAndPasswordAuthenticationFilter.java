@@ -26,7 +26,9 @@ import static com.github.chrisgleissner.microservice.springboot.rest.security.jw
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 
-// username/pwd -> jwt token. Listens on /login by default.
+/**
+ * Listens on /login and converts a username/password combination into a JWT which gets returned on the response header.
+ */
 @RequiredArgsConstructor @Slf4j
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter   {
     private final AuthenticationManager authManager;
@@ -34,28 +36,27 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        log.info("Invoked attemptAuthentication()");
         try {
-            UserCredentials creds = new ObjectMapper().readValue(request.getInputStream(), UserCredentials.class);
+            final UserCredentials creds = new ObjectMapper().readValue(request.getInputStream(), UserCredentials.class);
             return authManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(), creds.getPassword(), emptyList()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    // authenticatedUser is obtained from UserDetailsServiceImpl
+    /**
+     * @param authenticatedUser obtained from UserDetailsServiceImpl
+     */
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authenticatedUser) {
-        log.info("Invoked successfulAuthentication()");
-        Long now = System.currentTimeMillis();
-        String token = Jwts.builder()
+        final long millisSinceEpoch = System.currentTimeMillis();
+        final String token = Jwts.builder()
                 .setSubject(authenticatedUser.getName())
                 .claim("authorities", authenticatedUser.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(toList()))
-                .setIssuedAt(new Date(now))
-                .setExpiration(new Date(now + jwtConfig.getExpiration() * 1000))  // in milliseconds
+                .setIssuedAt(new Date(millisSinceEpoch))
+                .setExpiration(new Date(millisSinceEpoch + jwtConfig.getExpiration() * 1000))  // in milliseconds
                 .signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())
                 .compact();
-        log.info("Returning token in response header: {}", token);
         response.addHeader(AUTHORIZATION_HEADER_NAME, AUTHORIZATION_TOKEN_PREFIX + token);
     }
 
