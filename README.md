@@ -23,7 +23,7 @@ The aim is to provide the following features for all examined services:
 | Unit Tests           | Yes                       | Yes          |               |
 | Integration Tests    | Yes                       | Yes          | Yes           |
 | Swagger              | Yes                       | Yes          | Yes           |
-| Docker               |                           |              | Yes           |
+| Docker               | Yes                       |              | Yes           |
 
 # Build
 
