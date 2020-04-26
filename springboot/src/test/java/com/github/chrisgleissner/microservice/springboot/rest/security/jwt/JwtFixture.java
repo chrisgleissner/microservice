@@ -1,4 +1,4 @@
-package com.github.chrisgleissner.microservice.springboot.fixture;
+package com.github.chrisgleissner.microservice.springboot.rest.security.jwt;
 
 import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig;
 import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtUsernameAndPasswordAuthenticationFilter.UserCredentials;

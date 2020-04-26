@@ -9,15 +9,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.github.chrisgleissner.microservice.springboot.rest.security.user.Roles.ADMIN_ROLE;
-import static com.github.chrisgleissner.microservice.springboot.rest.security.user.Roles.USER_ROLE;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
 @Component @RequiredArgsConstructor
 public class AppUserRepo {
+    public static final String ADMIN_USER_NAME = "admin";
+    public static final String USER_ROLE = "USER";
+    public static final String ADMIN_ROLE = "ADMIN";
+
     public static final AppUser NORMAL_APP_USER = new AppUser(1, "user", "secret", USER_ROLE);
-    public static final AppUser ADMIN_APP_USER = new AppUser(2, "admin", "secret2", ADMIN_ROLE);
+    public static final AppUser ADMIN_APP_USER = new AppUser(2, ADMIN_USER_NAME, "secret2", ADMIN_ROLE);
     private final Map<String, AppUser> appUsersByUsername;
 
     @Autowired

@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static com.github.chrisgleissner.microservice.springboot.fixture.JwtFixture.userJwt;
+import static com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtFixture.userJwt;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpMethod.GET;
 

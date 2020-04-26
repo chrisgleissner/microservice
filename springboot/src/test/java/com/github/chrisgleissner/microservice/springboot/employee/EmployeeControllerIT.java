@@ -12,13 +12,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
 
-import static com.github.chrisgleissner.microservice.springboot.fixture.JwtFixture.adminJwt;
-import static com.github.chrisgleissner.microservice.springboot.fixture.JwtFixture.userJwt;
+import static com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtFixture.adminJwt;
+import static com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtFixture.userJwt;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @ExtendWith(SpringExtension.class) @RestIT
 class EmployeeControllerIT {

@@ -1,9 +1,7 @@
 package com.github.chrisgleissner.microservice.springboot.employee;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.chrisgleissner.microservice.springboot.fixture.UserFixture;
 import com.github.chrisgleissner.microservice.springboot.rest.security.WebSecurityConfig;
-import com.github.chrisgleissner.microservice.springboot.rest.security.user.Roles;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -22,6 +20,8 @@ import java.util.Optional;
 
 import static com.github.chrisgleissner.microservice.springboot.fixture.JsonFixture.fromJson;
 import static com.github.chrisgleissner.microservice.springboot.fixture.JsonFixture.json;
+import static com.github.chrisgleissner.microservice.springboot.rest.security.user.AppUserRepo.ADMIN_ROLE;
+import static com.github.chrisgleissner.microservice.springboot.rest.security.user.AppUserRepo.ADMIN_USER_NAME;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
@@ -93,7 +93,7 @@ class EmployeeControllerTest {
     }
 
     @Test
-    @WithMockUser(username = UserFixture.ADMIN_USER_NAME, roles = {Roles.ADMIN_ROLE})
+    @WithMockUser(username = ADMIN_USER_NAME, roles = {ADMIN_ROLE})
     void postWorks() throws Exception {
         when(userRepository.save(Mockito.any())).then(returnsFirstArg());
         Employee employee = new Employee("Foo", "Bar", LocalDate.of(2000, 1, 1));
