@@ -34,8 +34,10 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         final String token = header.replace(JwtConfig.AUTHORIZATION_TOKEN_PREFIX, "");
+        log.info("Got token: {}", token);
         try {
             Claims claims = Jwts.parser().setSigningKey(jwtConfig.getSecret().getBytes()).parseClaimsJws(token).getBody();
+            log.info("Obtained claims from token: {}", claims);
             activateAuthenticatedUser(claims);
         } catch (Exception e) {
             SecurityContextHolder.clearContext();
@@ -48,6 +50,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
         String username = claims.getSubject();
         if (username != null) {
             List<SimpleGrantedAuthority> authorities = ((List<String>) claims.get("authorities")).stream().map(SimpleGrantedAuthority::new).collect(toList());
+            log.info("Activating authenticated user {} using {}", username, authorities);
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(username, null, authorities));
             // User is now authenticated
         }

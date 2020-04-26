@@ -32,6 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             if (appUser.getUsername().equals(username)) {
                 // Spring requires "ROLE_" prefix for all roles, e.g. "ROLE_ADMIN" means hasRole("ADMIN") passes
                 List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_" + appUser.getRole());
+                log.info("Returning {}", grantedAuthorities);
                 return new User(appUser.getUsername(), appUser.getPassword(), grantedAuthorities);
             }
         }

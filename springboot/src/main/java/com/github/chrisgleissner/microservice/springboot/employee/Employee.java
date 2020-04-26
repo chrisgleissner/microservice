@@ -14,8 +14,12 @@ import java.time.LocalDate;
 @Entity
 @Value @AllArgsConstructor @NoArgsConstructor(force = true, access = AccessLevel.PACKAGE)
 public class Employee {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO) long id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     String firstname;
     String lastname;
     LocalDate birthday;
+
+    public Employee(String firstname, String lastname, LocalDate birthday) {
+        this(null, firstname, lastname, birthday);
+    }
 }

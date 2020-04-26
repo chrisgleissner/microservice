@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+// Unsecured
 @RestController @RequestMapping(value = "/api/ping") @RequiredArgsConstructor
 public class PingController {
     private final PingService pingService;
