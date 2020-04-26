@@ -1,6 +1,9 @@
 package com.github.chrisgleissner.microservice.springboot.ping;
 
 import com.github.chrisgleissner.microservice.springboot.rest.RestIT;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Value;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +20,13 @@ class PingControllerIT {
 
     @Test
     void ping() {
-        ResponseEntity<String> responseEntity = template.getForEntity("/api/ping", String.class);
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(responseEntity.getBody()).isNotEmpty();
+        ResponseEntity<PingResponse> response = template.getForEntity("/api/ping", PingResponse.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().pong).isGreaterThan(0);
+    }
+
+    @Value @NoArgsConstructor(force = true) @AllArgsConstructor
+    public static class PingResponse {
+        long pong;
     }
 }
