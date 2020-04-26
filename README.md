@@ -27,9 +27,14 @@ The aim is to provide the following features for all examined services:
 
 # Build
 
-Install a Docker daemon, then build via:
+Build with:
 ```
 mvn clean install
+```
+
+For creating Docker images, first install a `docker` daemon and then build with:
+```
+mvn clean install -Pdocker
 ```
 
 # Run
