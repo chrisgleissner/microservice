@@ -1,9 +1,9 @@
 package com.github.chrisgleissner.microservice.springboot.employee;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.chrisgleissner.microservice.springboot.fixture.UserFixture;
 import com.github.chrisgleissner.microservice.springboot.rest.security.WebSecurityConfig;
-import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.create.UserConstants;
-import lombok.val;
+import com.github.chrisgleissner.microservice.springboot.rest.security.user.Roles;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -22,7 +22,6 @@ import java.util.Optional;
 
 import static com.github.chrisgleissner.microservice.springboot.fixture.JsonFixture.fromJson;
 import static com.github.chrisgleissner.microservice.springboot.fixture.JsonFixture.json;
-import static com.github.chrisgleissner.microservice.springboot.rest.security.jwt.create.UserConstants.USER_NAME;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
@@ -46,21 +45,21 @@ class EmployeeControllerTest {
     @MockBean EmployeeRepository userRepository;
 
     @Test
-    @WithMockUser(username = USER_NAME)
+    @WithMockUser
     void findAll() throws Exception {
         when(userRepository.findAll()).thenReturn(EMPLOYEES);
         assertThat(findUsers(PATH)).isEqualTo(EMPLOYEES);
     }
 
     @Test
-    @WithMockUser(username = USER_NAME)
+    @WithMockUser
     void findById() throws Exception {
         when(userRepository.findById(any())).thenReturn(Optional.of(JOHN_DOE));
         assertThat(findUser(PATH + "/" + JOHN_DOE.getId())).isEqualTo(JOHN_DOE);
     }
 
     @Test
-    @WithMockUser(username = USER_NAME)
+    @WithMockUser
     void findByIdNotFound() throws Exception {
         when(userRepository.findById(any())).thenReturn(Optional.empty());
         mvc.perform(get(PATH + "/" + 3).contentType(MediaType.APPLICATION_JSON))
@@ -68,7 +67,7 @@ class EmployeeControllerTest {
     }
 
     @Test
-    @WithMockUser(username = USER_NAME)
+    @WithMockUser
     void findByLastname() throws Exception {
         when(userRepository.findByLastname(any())).thenReturn(List.of(JOHN_DOE));
         assertThat(findUsers(PATH + "?lastName=Doe")).containsExactly(JOHN_DOE);
@@ -85,7 +84,7 @@ class EmployeeControllerTest {
     }
 
     @Test
-    @WithMockUser(username = USER_NAME)
+    @WithMockUser
     void postForbidden() throws Exception {
         mvc.perform(post(PATH)
                 .contentType(APPLICATION_JSON_VALUE)
@@ -94,7 +93,7 @@ class EmployeeControllerTest {
     }
 
     @Test
-    @WithMockUser(username = UserConstants.ADMIN_NAME, roles = {UserConstants.ADMIN_ROLE})
+    @WithMockUser(username = UserFixture.ADMIN_USER_NAME, roles = {Roles.ADMIN_ROLE})
     void postWorks() throws Exception {
         when(userRepository.save(Mockito.any())).then(returnsFirstArg());
         Employee employee = new Employee("Foo", "Bar", LocalDate.of(2000, 1, 1));

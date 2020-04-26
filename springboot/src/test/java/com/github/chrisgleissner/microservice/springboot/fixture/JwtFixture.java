@@ -2,8 +2,7 @@ package com.github.chrisgleissner.microservice.springboot.fixture;
 
 import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig;
 import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.create.JwtUsernameAndPasswordAuthenticationFilter;
-import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.create.UserConstants;
-import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.create.UserDetailsServiceImpl;
+import com.github.chrisgleissner.microservice.springboot.rest.security.user.AppUserRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpHeaders;
@@ -13,18 +12,18 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static com.github.chrisgleissner.microservice.springboot.rest.security.jwt.create.UserConstants.*;
+import static com.github.chrisgleissner.microservice.springboot.rest.security.user.AppUserRepo.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 public class JwtFixture {
 
     public static HttpHeaders userJwt(TestRestTemplate testRestTemplate) {
-        return jwt(testRestTemplate, USER_NAME, USER_PASSWORD);
+        return jwt(testRestTemplate, AppUserRepo.NORMAL_APP_USER.getUsername(), AppUserRepo.NORMAL_APP_USER.getPassword());
     }
 
     public static HttpHeaders adminJwt(TestRestTemplate testRestTemplate) {
-        return jwt(testRestTemplate, ADMIN_NAME, ADMIN_PASSWORD);
+        return jwt(testRestTemplate, ADMIN_APP_USER.getUsername(), ADMIN_APP_USER.getPassword());
     }
 
     private static HttpHeaders jwt(TestRestTemplate testRestTemplate, String username, String password) {

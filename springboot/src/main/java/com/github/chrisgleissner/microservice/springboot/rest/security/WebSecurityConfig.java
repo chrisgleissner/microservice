@@ -2,7 +2,7 @@ package com.github.chrisgleissner.microservice.springboot.rest.security;
 
 import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig;
 import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.create.JwtUsernameAndPasswordAuthenticationFilter;
-import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.create.UserConstants;
+import com.github.chrisgleissner.microservice.springboot.rest.security.user.Roles;
 import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.verify.JwtTokenAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -36,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests()
                 .antMatchers(POST, jwtConfig.getUri()).permitAll() // allow all who are accessing "/login"
-                .antMatchers("/api/admin/**").hasRole(UserConstants.ADMIN_ROLE) // must be a authenticated and an admin for '/api/admin'
+                .antMatchers("/api/admin/**").hasRole(Roles.ADMIN_ROLE) // must be a authenticated and an admin for '/api/admin'
                 .anyRequest().authenticated(); // Any other request must be authenticated
     }
 

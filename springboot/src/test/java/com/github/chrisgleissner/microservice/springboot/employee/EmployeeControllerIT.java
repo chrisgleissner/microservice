@@ -1,8 +1,6 @@
 package com.github.chrisgleissner.microservice.springboot.employee;
 
 import com.github.chrisgleissner.microservice.springboot.rest.RestIT;
-import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.create.UserConstants;
-import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,23 +8,17 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
 
-import static com.github.chrisgleissner.microservice.springboot.fixture.JsonFixture.fromJson;
-import static com.github.chrisgleissner.microservice.springboot.fixture.JsonFixture.json;
 import static com.github.chrisgleissner.microservice.springboot.fixture.JwtFixture.adminJwt;
 import static com.github.chrisgleissner.microservice.springboot.fixture.JwtFixture.userJwt;
-import static io.restassured.http.Cookie.PATH;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 @ExtendWith(SpringExtension.class) @RestIT
 class EmployeeControllerIT {
