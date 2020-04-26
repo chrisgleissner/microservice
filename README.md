@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/chrisgleissner/microservice.svg?branch=master)](https://travis-ci.com/chrisgleissner/microservice)
 
-This repository contains simple REST-based Java 11 microservices for Quarkus, Spring Boot, and Wildfly. 
+This repository contains simple REST-based Java 11 microservices for Spring Boot, Quarkus and Wildfly. 
 
 The aim is to provide the following features for all services:
 * REST API for `company` and `employee` entities
