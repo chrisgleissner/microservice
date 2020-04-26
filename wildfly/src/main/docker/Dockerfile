@@ -2,11 +2,11 @@ FROM amazoncorretto:11
 
 RUN yum update -y && yum -y install shadow-utils.x86_64 ps tar gzip xmlstarlet saxon augeas bsdtar unzip && yum clean all
 
-# Create a appUser and group used to launch processes
-# The appUser ID 1000 is the default for the first "regular" appUser on Fedora/RHEL,
-# so there is a high chance that this ID will be equal to the current appUser
+# Create a user and group used to launch processes
+# The user ID 1000 is the default for the first "regular" user on Fedora/RHEL,
+# so there is a high chance that this ID will be equal to the current user
 # making it easier to use volumes (no permission issues)
-RUN groupadd -r jboss -g 1000 && useradd -u 1000 -r -g jboss -m -d /opt/jboss -s /sbin/nologin -c "JBoss appUser" jboss && \
+RUN groupadd -r jboss -g 1000 && useradd -u 1000 -r -g jboss -m -d /opt/jboss -s /sbin/nologin -c "JBoss user" jboss && \
     chmod 755 /opt/jboss
 WORKDIR /opt/jboss
 
