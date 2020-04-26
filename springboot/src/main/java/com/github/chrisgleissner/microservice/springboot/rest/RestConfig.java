@@ -3,6 +3,8 @@ package com.github.chrisgleissner.microservice.springboot.rest;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -20,9 +22,18 @@ public class RestConfig {
     private final Environment environment;
 
     @Bean
-    public OpenAPI customOpenAPI() {
+    public OpenAPI openApi() {
+        final String securitySchemeName = "bearerAuth";
         return new OpenAPI()
-                .components(new Components())
+                .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
+                .components(new Components()
+                        .addSecuritySchemes(securitySchemeName,
+                                new SecurityScheme()
+                                        .name(securitySchemeName)
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("bearer")
+                                        .bearerFormat("JWT")
+                        ))
                 .info(new Info()
                         .title("Spring Boot Microservice REST API")
                         .version(buildProperties.map(p -> String.format("%s  -  Build time %s", p.getVersion(), p.getTime())).orElse("")));
