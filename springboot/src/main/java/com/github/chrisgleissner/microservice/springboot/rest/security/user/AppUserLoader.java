@@ -18,6 +18,9 @@ public class AppUserLoader implements ApplicationRunner {
     @Override public void run(ApplicationArguments args) throws Exception {
         log.info("Creating users");
         appUserRepo.save(new AppUser("user", passwordEncoder.encode("secret"), List.of("USER")));
+        appUserRepo.save(new AppUser("user1", passwordEncoder.encode("secret"), List.of("USER")));
+        appUserRepo.save(new AppUser("user2", passwordEncoder.encode("secret"), List.of("USER")));
+        appUserRepo.save(new AppUser("user3", passwordEncoder.encode("secret"), List.of("USER")));
         appUserRepo.save(new AppUser("admin", passwordEncoder.encode("secret2"), List.of("ADMIN")));
     }
 }

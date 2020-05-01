@@ -26,6 +26,7 @@ Implemented features:
 | Integration Tests    | Yes                       | Yes          | Yes           |
 | Swagger              | Yes                       | Yes          | Yes           |
 | Docker               | Yes                       |              | Yes           |
+| JMeter               | Yes                       |              |               |
 
 # Build
 
@@ -44,9 +45,30 @@ mvn clean install -Pdocker
 ## Spring Boot
 
 ```
+mvn -f springboot/pom.xml spring-boot:run
+```
+
+or, using Docker:
+```
 docker run -p8080:8080 microservice-springboot
 ```
 
+# Performance Test
 
+First start service as described above, then run a JMeter benchmark against it using:
+```
+mvn -f jmeter/pom.xml install -Pjmeter
+```
 
+or using a custom configuration of 50 users and a test duration of 20 seconds:
+```
+mvn -f jmeter/pom.xml clean install -Pjmeter -Djmeter.users=50  -Djmeter.duration=20 
+```
 
+Then open the HTML results at [jmeter/target/jmeter/reports/test/index.html](file://jmeter/target/jmeter/reports/test/index.html).
+
+To edit the test plan, run
+```
+mvn -f jmeter/pom.xml jmeter:configure jmeter:gui -Pjmeter
+```
+and open `jmeter/src/test/jmeter/test.jmx`.

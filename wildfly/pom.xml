@@ -16,7 +16,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <wildfly.version>18.0.1.Final</wildfly.version>
+        <wildfly.version>19.0.0.Final</wildfly.version>
     </properties>
 
     <dependencies>

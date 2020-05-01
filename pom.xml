@@ -11,5 +11,6 @@
         <module>springboot</module>
         <module>wildfly</module>
         <module>quarkus</module>
+        <module>jmeter</module>
     </modules>
 </project>
