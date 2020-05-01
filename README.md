@@ -57,7 +57,7 @@ docker run -p8080:8080 microservice-springboot
 
 First start service as described above, then run a JMeter benchmark against it using:
 ```
-mvn -f jmeter/pom.xml install -Pjmeter
+mvn -f jmeter/pom.xml clean install -Pjmeter
 ```
 
 or using a custom configuration of up to 500 threads, ramped up in linear fashion using 5 steps over a duration of 60 seconds:
