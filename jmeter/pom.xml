@@ -8,6 +8,7 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jmeter.targetConcurrency>10</jmeter.targetConcurrency>
         <jmeter.rampUpTime>5</jmeter.rampUpTime>
         <jmeter.rampUpSteps>3</jmeter.rampUpSteps>

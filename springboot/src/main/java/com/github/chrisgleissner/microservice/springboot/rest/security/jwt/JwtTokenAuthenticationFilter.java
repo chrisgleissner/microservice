@@ -44,7 +44,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
         try {
             jwtToken(request.getHeader(AUTHORIZATION_HEADER_NAME))
                     .ifPresent(token -> {
-                        log.info("Found token {}", token);
+                        log.debug("Found token {}", token);
                         activateAuthenticatedUser(Jwts.parser().setSigningKey(jwtConfig.getSecret().getBytes()).parseClaimsJws(token).getBody());
                     });
         } catch (Exception e) {
@@ -56,7 +56,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
     private void activateAuthenticatedUser(Claims claims) {
         Optional.ofNullable(claims.getSubject()).ifPresent(username -> {
-            log.info("Authenticating {}", username);
+            log.debug("Authenticating {}", username);
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(username, null,
                     ((List<String>) claims.get(AUTHORITIES_CLAIM)).stream().map(SimpleGrantedAuthority::new).collect(toList())));
         });
