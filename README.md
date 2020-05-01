@@ -60,9 +60,9 @@ First start service as described above, then run a JMeter benchmark against it u
 mvn -f jmeter/pom.xml install -Pjmeter
 ```
 
-or using a custom configuration of 50 users and a test duration of 20 seconds:
+or using a custom configuration of up to 500 threads, ramped up in linear fashion using 5 steps over a duration of 60 seconds:
 ```
-mvn -f jmeter/pom.xml clean install -Pjmeter -Djmeter.users=50  -Djmeter.duration=20 
+mvn -f jmeter/pom.xml clean install -Pjmeter -Djmeter.targetConcurrency=500 -Djmeter.rampUpSteps=5 -Djmeter.rampUpTime=60 
 ```
 
 Then open the HTML results at [jmeter/target/jmeter/reports/test/index.html](file://jmeter/target/jmeter/reports/test/index.html).

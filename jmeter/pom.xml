@@ -8,8 +8,9 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
-        <jmeter.users>100</jmeter.users>
-        <jmeter.duration>30</jmeter.duration>
+        <jmeter.targetConcurrency>100</jmeter.targetConcurrency>
+        <jmeter.rampUpTime>30</jmeter.rampUpTime>
+        <jmeter.rampUpSteps>5</jmeter.rampUpSteps>
         <jmeter.protocol>http</jmeter.protocol>
         <jmeter.hostname>localhost</jmeter.hostname>
         <jmeter.port>8080</jmeter.port>
@@ -47,12 +48,13 @@
                         <configuration>
                             <generateReports>true</generateReports>
                             <propertiesUser>
-                                <users>${jmeter.users}</users>
-                                <duration>${jmeter.duration}</duration>
+                                <targetConcurrency>${jmeter.targetConcurrency}</targetConcurrency>
+                                <rampUpTime>${jmeter.rampUpTime}</rampUpTime>
+                                <rampUpSteps>${jmeter.rampUpSteps}</rampUpSteps>
                                 <protocol>${jmeter.protocol}</protocol>
                                 <hostname>${jmeter.hostname}</hostname>
                                 <port>${jmeter.port}</port>
-                                <jmeter.reportgenerator.overall_granularity>1000</jmeter.reportgenerator.overall_granularity>
+                                <jmeter.reportgenerator.overall_granularity>500</jmeter.reportgenerator.overall_granularity>
                             </propertiesUser>
                             <propertiesJMeter>
                                 <log_level.jmeter>DEBUG</log_level.jmeter>
