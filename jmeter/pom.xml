@@ -8,9 +8,9 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
-        <jmeter.targetConcurrency>100</jmeter.targetConcurrency>
-        <jmeter.rampUpTime>30</jmeter.rampUpTime>
-        <jmeter.rampUpSteps>5</jmeter.rampUpSteps>
+        <jmeter.targetConcurrency>10</jmeter.targetConcurrency>
+        <jmeter.rampUpTime>5</jmeter.rampUpTime>
+        <jmeter.rampUpSteps>3</jmeter.rampUpSteps>
         <jmeter.protocol>http</jmeter.protocol>
         <jmeter.hostname>localhost</jmeter.hostname>
         <jmeter.port>8080</jmeter.port>
@@ -62,6 +62,9 @@
                             <jmeterExtensions>
                                 <jmeterExtension>kg.apc:jmeter-plugins-casutg:2.9</jmeterExtension>
                             </jmeterExtensions>
+                            <excludedArtifacts>
+                                <exclusion>org.slf4j:slf4j-nop</exclusion>
+                            </excludedArtifacts>
                         </configuration>
                     </plugin>
                 </plugins>

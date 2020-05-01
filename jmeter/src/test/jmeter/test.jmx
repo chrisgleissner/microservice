@@ -138,8 +138,8 @@
       <com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup guiclass="com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroupGui" testclass="com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup" testname="bzm - Concurrency Thread Group" enabled="true">
         <elementProp name="ThreadGroup.main_controller" elementType="com.blazemeter.jmeter.control.VirtualUserController"/>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <stringProp name="TargetLevel">${__P(targetConcurrency,30)}</stringProp>
-        <stringProp name="RampUp">${__P(rampUpTime,30)}</stringProp>
+        <stringProp name="TargetLevel">${__P(targetConcurrency,3)}</stringProp>
+        <stringProp name="RampUp">${__P(rampUpTime,10)}</stringProp>
         <stringProp name="Steps">${__P(rampUpSteps,3)}</stringProp>
         <stringProp name="Hold"></stringProp>
         <stringProp name="LogFilename"></stringProp>
