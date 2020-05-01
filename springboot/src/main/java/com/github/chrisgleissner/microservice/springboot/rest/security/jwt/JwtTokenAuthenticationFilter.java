@@ -36,7 +36,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
     static Optional<String> jwtToken(String headerValue) {
         return Optional.ofNullable(headerValue)
                 .filter(hv -> hv.startsWith(AUTHORIZATION_TOKEN_PREFIX))
-                .map(hv -> hv.replaceAll(AUTHORIZATION_TOKEN_PREFIX, ""));
+                .map(hv -> hv.substring(AUTHORIZATION_TOKEN_PREFIX.length()));
     }
 
     @Override
