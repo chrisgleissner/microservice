@@ -160,6 +160,9 @@
                         <artifactId>jib-maven-plugin</artifactId>
                         <version>2.2.0</version>
                         <configuration>
+                            <from>
+                                <image>adoptopenjdk/openjdk11:jdk-11.0.7_10-debian</image>
+                            </from>
                             <to>
                                 <image>microservice-springboot</image>
                             </to>

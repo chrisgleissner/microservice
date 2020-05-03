@@ -89,13 +89,24 @@ sudo sh -c 'echo kernel.perf_event_paranoid=1 >> /etc/sysctl.d/99-perf.conf'
 sudo sh -c 'echo kernel.kptr_restrict=0 >> /etc/sysctl.d/99-perf.conf'
 sudo sh -c 'sysctl --system'
 ```
+
+Profile container from without:
 * For execution within Docker, download https://github.com/moby/moby/blob/master/profiles/seccomp/default.json, save
 as `seccomp-perf.json` and add `perf_event_open` to its `syscalls/names` section, then start Docker container:
 ```
 docker run --security-opt seccomp=seccomp-perf.json
 ```
+* Also see https://github.com/jvm-profiling-tools/async-profiler/blob/master/README.md#profiling-java-in-a-container
 
-Example for a 30s flame graph recording of process ID `123`, sampling every 99,999ns:
+Profile container from within:
 ```
-./profiler.sh -d 30 -f flamechart.svg -i 99999 123
+docker ps | grep java
+docker exec -it <id> /bin/bash
+apt-get update && apt-get install -y wget && wget -c https://github.com/jvm-profiling-tools/async-profiler/releases/download/v1.7/async-profiler-1.7-linux-x64.tar.gz -O - | tar -xz
+./profiler.sh -d 30 -f flames.svg -i 999us 1
+```
+
+Example for a 30s flame graph recording of process ID `123`, sampling every 999 micros:
+```
+./profiler.sh -d 30 -f flames.svg -i 999us 123
 ```
