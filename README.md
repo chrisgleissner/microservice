@@ -55,6 +55,8 @@ docker run -p8080:8080 microservice-springboot
 
 # Performance Test
 
+## JMeter
+
 First start service as described above, then run a JMeter benchmark against it using:
 ```
 mvn -f jmeter/pom.xml clean install -Pjmeter
@@ -72,3 +74,21 @@ To edit the test plan, run
 mvn -f jmeter/pom.xml jmeter:configure jmeter:gui -Pjmeter
 ```
 and open `jmeter/src/test/jmeter/test.jmx`.
+
+## Create Profiling Flame Graphs
+
+see https://queue.acm.org/detail.cfm?id=2927301
+
+Setup instructions for Linux:
+* Install https://github.com/jvm-profiling-tools/async-profiler
+* Allow collection of performance events by non-root users and resolve kernel symbols properly:
+```
+sudo sh -c 'echo kernel.perf_event_paranoid=1 >> /etc/sysctl.d/99-perf.conf'
+sudo sh -c 'echo kernel.kptr_restrict=0 >> /etc/sysctl.d/99-perf.conf'
+sudo sh -c 'sysctl --system'
+```
+
+Create 30s flame graph recording, sampling every 99,999ns:
+```
+./profiler.sh -d 30 -f flamechart.svg -i 99999 23455
+```
