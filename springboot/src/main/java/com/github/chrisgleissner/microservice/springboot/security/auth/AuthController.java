@@ -21,9 +21,8 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping(path = JWTS_SUBPATH, consumes = APPLICATION_JSON_VALUE, produces = TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> getJwt(@RequestBody UserCredentials userCredentials) throws AuthenticationException {
-        String jwt = authService.getJwt(userCredentials.getUsername(), userCredentials.getPassword());
-        return ResponseEntity.ok().headers(JwtUtil.toHeader(jwt)).build();
+    public String getJwt(@RequestBody UserCredentials userCredentials) throws AuthenticationException {
+        return authService.getJwt(userCredentials.getUsername(), userCredentials.getPassword());
     }
 
     @PostMapping(path = "authorizations", consumes = TEXT_PLAIN_VALUE, produces = APPLICATION_JSON_VALUE)

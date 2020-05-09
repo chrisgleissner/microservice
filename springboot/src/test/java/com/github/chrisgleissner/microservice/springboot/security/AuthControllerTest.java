@@ -48,13 +48,11 @@ class AuthControllerTest {
         val roles = List.of("role1", "role2");
         when(appUserRepo.findByUsername(eq(username))).thenReturn(Optional.of(new AppUser(username, bCryptPasswordEncoder.encode(password), roles)));
 
-        String jwtHeader = mvc.perform(post("/api/auth/jwts")
+        String jwt = mvc.perform(post("/api/auth/jwts")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json(objectMapper, new UserCredentials(username, password)))
                 .accept(MediaType.TEXT_PLAIN))
-                .andExpect(status().isOk()).andReturn().getResponse().getHeader(JwtUtil.AUTHORIZATION_HEADER_NAME);
-        assertThat(jwtHeader).isNotEmpty();
-        String jwt = JwtUtil.fromHeader(jwtHeader).orElseThrow();
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 
         String authorizationInfoJson = mvc.perform(post("/api/auth/authorizations")
                 .contentType(MediaType.TEXT_PLAIN)
