@@ -1,5 +1,6 @@
 package com.github.chrisgleissner.microservice.springboot.security.auth;
 
+import com.github.chrisgleissner.microservice.springboot.security.auth.user.SpringRoleNameUtil;
 import com.github.chrisgleissner.microservice.springboot.security.auth.util.AuthenticationManagerUtil;
 import com.github.chrisgleissner.microservice.springboot.security.jwt.JwtManager;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Override public Set<String> getRoles(String username) {
         return userDetailsService.loadUserByUsername(username).getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority).collect(toCollection(TreeSet::new));
+                .map(GrantedAuthority::getAuthority)
+                .map(SpringRoleNameUtil::fromSpringRoleName)
+                .collect(toCollection(TreeSet::new));
     }
 }
