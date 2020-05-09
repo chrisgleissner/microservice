@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.github.chrisgleissner.microservice.springboot.security.SecurityConstants.LOGIN_PATH;
 import static com.github.chrisgleissner.microservice.springboot.security.jwt.JwtConfig.AUTHORIZATION_HEADER_NAME;
 import static com.github.chrisgleissner.microservice.springboot.security.jwt.JwtConfig.AUTHORIZATION_TOKEN_PREFIX;
-import static com.github.chrisgleissner.microservice.springboot.security.jwt.JwtConfig.LOGIN_PATH;
 import static java.util.stream.Collectors.toSet;
 
 /**

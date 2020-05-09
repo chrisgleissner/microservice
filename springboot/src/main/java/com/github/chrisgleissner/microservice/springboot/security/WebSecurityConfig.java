@@ -18,7 +18,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.github.chrisgleissner.microservice.springboot.security.jwt.JwtConfig.LOGIN_PATH;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 import static org.springframework.http.HttpMethod.POST;
 
@@ -40,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new JwtTokenAuthenticationFilter(jwtManager), UsernamePasswordAuthenticationFilter.class)
 
                 .authorizeRequests()
-                .antMatchers(POST, LOGIN_PATH).permitAll()
+                .antMatchers(POST, SecurityConstants.AUTH_PATH + "/**").permitAll()
                 .anyRequest().authenticated();
     }
 

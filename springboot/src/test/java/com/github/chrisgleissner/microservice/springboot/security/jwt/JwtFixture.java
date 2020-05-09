@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static com.github.chrisgleissner.microservice.springboot.security.jwt.JwtConfig.LOGIN_PATH;
+import static com.github.chrisgleissner.microservice.springboot.security.SecurityConstants.LOGIN_PATH;
 import static com.github.chrisgleissner.microservice.springboot.security.auth.user.UserConstants.ADMIN_APP_USER;
 import static com.github.chrisgleissner.microservice.springboot.security.auth.user.UserConstants.NORMAL_APP_USER;
 import static org.assertj.core.api.Assertions.assertThat;
