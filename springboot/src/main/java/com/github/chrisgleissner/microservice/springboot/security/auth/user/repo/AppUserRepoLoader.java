@@ -1,7 +1,5 @@
-package com.github.chrisgleissner.microservice.springboot.security.auth.user;
+package com.github.chrisgleissner.microservice.springboot.security.auth.user.repo;
 
-import com.github.chrisgleissner.microservice.springboot.security.auth.user.repo.AppUser;
-import com.github.chrisgleissner.microservice.springboot.security.auth.user.repo.AppUserRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -12,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component @RequiredArgsConstructor @Slf4j
-public class AppUserLoader implements ApplicationRunner {
+public class AppUserRepoLoader implements ApplicationRunner {
     private final AppUserRepo appUserRepo;
     private final BCryptPasswordEncoder passwordEncoder;
 

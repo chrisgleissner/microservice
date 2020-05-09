@@ -27,6 +27,6 @@ public class AuthController {
 
     @PostMapping(path = "authorizations", consumes = TEXT_PLAIN_VALUE, produces = APPLICATION_JSON_VALUE)
     public AuthorizationInfo getAuthorizationInfo(@RequestBody String jwt) throws AuthenticationException {
-       return authService.getAuthInfo(jwt);
+       return authService.getAuthorizationInfo(jwt);
     }
 }
