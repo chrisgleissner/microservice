@@ -10,7 +10,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 
-import static com.github.chrisgleissner.microservice.springboot.security.jwt.JwtConfig.AUTHORITIES_CLAIM;
+import static com.github.chrisgleissner.microservice.springboot.security.jwt.JwtUtil.AUTHORITIES_CLAIM;
 
 @Component @RequiredArgsConstructor
 public class JwtManager {
@@ -29,9 +29,5 @@ public class JwtManager {
 
     public Claims getClaims(String jwt) {
         return Jwts.parser().setSigningKey(jwtConfig.getSecret().getBytes()).parseClaimsJws(jwt).getBody();
-    }
-
-    public static String getUsername(Claims claims) {
-        return claims.getSubject();
     }
 }

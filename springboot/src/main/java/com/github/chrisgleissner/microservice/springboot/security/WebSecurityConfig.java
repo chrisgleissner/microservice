@@ -1,9 +1,9 @@
 package com.github.chrisgleissner.microservice.springboot.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.chrisgleissner.microservice.springboot.security.auth.AuthControllerConstants;
 import com.github.chrisgleissner.microservice.springboot.security.jwt.JwtManager;
 import com.github.chrisgleissner.microservice.springboot.security.jwt.JwtTokenAuthenticationFilter;
-import com.github.chrisgleissner.microservice.springboot.security.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,7 +16,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
@@ -36,11 +35,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(SC_UNAUTHORIZED))
 
-                .and().addFilter(new JwtUsernameAndPasswordAuthenticationFilter(objectMapper, authenticationManager(), jwtManager))
-                .addFilterAfter(new JwtTokenAuthenticationFilter(jwtManager), UsernamePasswordAuthenticationFilter.class)
+                //.and().addFilter(new JwtUsernameAndPasswordAuthenticationFilter(objectMapper, authenticationManager(), jwtManager))
+                .and().addFilterAfter(new JwtTokenAuthenticationFilter(jwtManager), BasicAuthenticationFilter.class)
 
                 .authorizeRequests()
-                .antMatchers(POST, SecurityConstants.AUTH_PATH + "/**").permitAll()
+                .antMatchers(POST, AuthControllerConstants.AUTH_PATH + "/**").permitAll()
                 .anyRequest().authenticated();
     }
 

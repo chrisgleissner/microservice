@@ -3,6 +3,7 @@ package com.github.chrisgleissner.microservice.springboot.security.auth;
 import com.github.chrisgleissner.microservice.springboot.security.auth.user.SpringRoleNameUtil;
 import com.github.chrisgleissner.microservice.springboot.security.auth.util.AuthenticationManagerUtil;
 import com.github.chrisgleissner.microservice.springboot.security.jwt.JwtManager;
+import com.github.chrisgleissner.microservice.springboot.security.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,7 +23,7 @@ public class AuthServiceImpl implements AuthService {
     private final JwtManager jwtManager;
 
     @Override public String getUsername(String jwt) {
-        return JwtManager.getUsername(jwtManager.getClaims(jwt));
+        return JwtUtil.getUsername(jwtManager.getClaims(jwt));
     }
 
     @Override public String getJwt(String username, String password) {
