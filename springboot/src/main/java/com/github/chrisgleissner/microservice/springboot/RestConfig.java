@@ -1,4 +1,4 @@
-package com.github.chrisgleissner.microservice.springboot.rest;
+package com.github.chrisgleissner.microservice.springboot;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

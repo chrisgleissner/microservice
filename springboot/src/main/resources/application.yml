@@ -1,0 +1,24 @@
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.springframework.web: INFO
+hibernate:
+  cache:
+    use_second_level_cache: true
+    region:
+      factory_class: org.hibernate.cache.ehcache.internal.EhcacheRegionFactory
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+  servlet:
+    context-path: /micro
+spring:
+  data:
+    rest:
+      base-path: /api
+security:
+  jwt:
+    expiration: 3600
+    secret: VerySecretJwtKey

@@ -1,15 +1,14 @@
 package com.github.chrisgleissner.microservice.springboot.employee;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.chrisgleissner.microservice.springboot.rest.security.WebSecurityConfig;
-import com.github.chrisgleissner.microservice.springboot.rest.security.user.AppUserRepo;
+import com.github.chrisgleissner.microservice.springboot.fixture.SecurityAwareTest;
+import com.github.chrisgleissner.microservice.springboot.security.auth.user.repo.AppUserRepo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -21,8 +20,8 @@ import java.util.Optional;
 
 import static com.github.chrisgleissner.microservice.springboot.fixture.JsonFixture.fromJson;
 import static com.github.chrisgleissner.microservice.springboot.fixture.JsonFixture.json;
-import static com.github.chrisgleissner.microservice.springboot.rest.security.user.UserConstants.ADMIN_ROLE;
-import static com.github.chrisgleissner.microservice.springboot.rest.security.user.UserConstants.ADMIN_USER_NAME;
+import static com.github.chrisgleissner.microservice.springboot.security.auth.user.UserConstants.ADMIN_ROLE;
+import static com.github.chrisgleissner.microservice.springboot.security.auth.user.UserConstants.ADMIN_USER_NAME;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
@@ -34,7 +33,7 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(EmployeeController.class)
-@ComponentScan(basePackageClasses = WebSecurityConfig.class)
+@SecurityAwareTest
 class EmployeeControllerTest {
     private static final String PATH = "/api/employee";
     private static final Employee JOHN_DOE = new Employee(1L, "John", "Doe", LocalDate.of(1960, 1, 1));

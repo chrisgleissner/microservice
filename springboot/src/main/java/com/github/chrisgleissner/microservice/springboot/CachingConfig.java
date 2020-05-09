@@ -1,4 +1,4 @@
-package com.github.chrisgleissner.microservice.springboot.cache;
+package com.github.chrisgleissner.microservice.springboot;
 
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;

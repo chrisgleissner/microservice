@@ -1,11 +1,6 @@
-package com.github.chrisgleissner.microservice.springboot.rest.security.jwt;
+package com.github.chrisgleissner.microservice.springboot.security.jwt;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Header;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwt;
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,9 +16,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-import static com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig.AUTHORITIES_CLAIM;
-import static com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig.AUTHORIZATION_HEADER_NAME;
-import static com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig.AUTHORIZATION_TOKEN_PREFIX;
+import static com.github.chrisgleissner.microservice.springboot.security.jwt.JwtConfig.AUTHORITIES_CLAIM;
+import static com.github.chrisgleissner.microservice.springboot.security.jwt.JwtConfig.AUTHORIZATION_HEADER_NAME;
+import static com.github.chrisgleissner.microservice.springboot.security.jwt.JwtConfig.AUTHORIZATION_TOKEN_PREFIX;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -31,9 +26,9 @@ import static java.util.stream.Collectors.toList;
  */
 @RequiredArgsConstructor @Slf4j
 public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
-    private final JwtConfig jwtConfig;
+    private final JwtManager jwtManager;
 
-    static Optional<String> jwtToken(String headerValue) {
+    static Optional<String> jwt(String headerValue) {
         return Optional.ofNullable(headerValue)
                 .filter(hv -> hv.startsWith(AUTHORIZATION_TOKEN_PREFIX))
                 .map(hv -> hv.substring(AUTHORIZATION_TOKEN_PREFIX.length()));
@@ -42,11 +37,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         try {
-            jwtToken(request.getHeader(AUTHORIZATION_HEADER_NAME))
-                    .ifPresent(token -> {
-                        log.debug("Found token {}", token);
-                        activateAuthenticatedUser(Jwts.parser().setSigningKey(jwtConfig.getSecret().getBytes()).parseClaimsJws(token).getBody());
-                    });
+            jwt(request.getHeader(AUTHORIZATION_HEADER_NAME)).ifPresent(jwt -> activateAuthenticatedUser(jwtManager.getClaims(jwt)));
         } catch (Exception e) {
             log.warn("Failed to authenticate user", e);
             SecurityContextHolder.clearContext();

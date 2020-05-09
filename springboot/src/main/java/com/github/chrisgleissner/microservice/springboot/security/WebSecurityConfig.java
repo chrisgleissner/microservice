@@ -1,10 +1,13 @@
-package com.github.chrisgleissner.microservice.springboot.rest.security;
+package com.github.chrisgleissner.microservice.springboot.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig;
-import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtUsernameAndPasswordAuthenticationFilter;
-import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtTokenAuthenticationFilter;
+import com.github.chrisgleissner.microservice.springboot.security.jwt.JwtManager;
+import com.github.chrisgleissner.microservice.springboot.security.jwt.JwtTokenAuthenticationFilter;
+import com.github.chrisgleissner.microservice.springboot.security.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -15,14 +18,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig.LOGIN_PATH;
+import static com.github.chrisgleissner.microservice.springboot.security.jwt.JwtConfig.LOGIN_PATH;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 import static org.springframework.http.HttpMethod.POST;
 
 @EnableWebSecurity @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final ObjectMapper objectMapper;
-    private final JwtConfig jwtConfig;
+    private final JwtManager jwtManager;
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -33,8 +36,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(SC_UNAUTHORIZED))
 
-                .and().addFilter(new JwtUsernameAndPasswordAuthenticationFilter(objectMapper, authenticationManager(), jwtConfig))
-                .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
+                .and().addFilter(new JwtUsernameAndPasswordAuthenticationFilter(objectMapper, authenticationManager(), jwtManager))
+                .addFilterAfter(new JwtTokenAuthenticationFilter(jwtManager), UsernamePasswordAuthenticationFilter.class)
 
                 .authorizeRequests()
                 .antMatchers(POST, LOGIN_PATH).permitAll()
@@ -55,5 +58,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+    }
+
+    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }

@@ -1,8 +1,6 @@
-package com.github.chrisgleissner.microservice.springboot.rest.security.jwt;
+package com.github.chrisgleissner.microservice.springboot.security.jwt;
 
-import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig;
-import com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtUsernameAndPasswordAuthenticationFilter.UserCredentials;
-import com.github.chrisgleissner.microservice.springboot.rest.security.user.AppUserRepo;
+import com.github.chrisgleissner.microservice.springboot.security.auth.domain.UserCredentials;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpHeaders;
@@ -12,9 +10,9 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static com.github.chrisgleissner.microservice.springboot.rest.security.jwt.JwtConfig.LOGIN_PATH;
-import static com.github.chrisgleissner.microservice.springboot.rest.security.user.UserConstants.ADMIN_APP_USER;
-import static com.github.chrisgleissner.microservice.springboot.rest.security.user.UserConstants.NORMAL_APP_USER;
+import static com.github.chrisgleissner.microservice.springboot.security.jwt.JwtConfig.LOGIN_PATH;
+import static com.github.chrisgleissner.microservice.springboot.security.auth.user.UserConstants.ADMIN_APP_USER;
+import static com.github.chrisgleissner.microservice.springboot.security.auth.user.UserConstants.NORMAL_APP_USER;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j

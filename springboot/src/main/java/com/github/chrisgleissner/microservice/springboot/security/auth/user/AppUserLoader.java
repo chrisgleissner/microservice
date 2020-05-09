@@ -1,6 +1,7 @@
-package com.github.chrisgleissner.microservice.springboot.rest.security.user;
+package com.github.chrisgleissner.microservice.springboot.security.auth.user;
 
-import com.github.chrisgleissner.microservice.springboot.rest.security.user.domain.AppUser;
+import com.github.chrisgleissner.microservice.springboot.security.auth.user.repo.AppUser;
+import com.github.chrisgleissner.microservice.springboot.security.auth.user.repo.AppUserRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -15,7 +16,7 @@ public class AppUserLoader implements ApplicationRunner {
     private final AppUserRepo appUserRepo;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @Override public void run(ApplicationArguments args) throws Exception {
+    @Override public void run(ApplicationArguments args) {
         log.info("Creating users");
         appUserRepo.save(new AppUser("user", passwordEncoder.encode("secret"), List.of("USER")));
         appUserRepo.save(new AppUser("user1", passwordEncoder.encode("secret"), List.of("USER")));

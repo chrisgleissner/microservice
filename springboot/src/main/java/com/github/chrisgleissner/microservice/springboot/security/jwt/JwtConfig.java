@@ -1,4 +1,4 @@
-package com.github.chrisgleissner.microservice.springboot.rest.security.jwt;
+package com.github.chrisgleissner.microservice.springboot.security.jwt;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

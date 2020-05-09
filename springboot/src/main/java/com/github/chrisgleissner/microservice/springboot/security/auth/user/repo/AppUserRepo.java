@@ -1,6 +1,5 @@
-package com.github.chrisgleissner.microservice.springboot.rest.security.user;
+package com.github.chrisgleissner.microservice.springboot.security.auth.user.repo;
 
-import com.github.chrisgleissner.microservice.springboot.rest.security.user.domain.AppUser;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.repository.CrudRepository;
 

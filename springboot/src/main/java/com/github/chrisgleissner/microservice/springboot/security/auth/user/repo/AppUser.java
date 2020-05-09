@@ -1,4 +1,4 @@
-package com.github.chrisgleissner.microservice.springboot.rest.security.user.domain;
+package com.github.chrisgleissner.microservice.springboot.security.auth.user.repo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

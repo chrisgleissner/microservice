@@ -1,7 +1,7 @@
-package com.github.chrisgleissner.microservice.springboot.rest.security.user;
+package com.github.chrisgleissner.microservice.springboot.security.auth.user;
 
-import com.github.chrisgleissner.microservice.springboot.rest.security.user.domain.AppRole;
-import com.github.chrisgleissner.microservice.springboot.rest.security.user.domain.AppUser;
+import com.github.chrisgleissner.microservice.springboot.security.auth.user.repo.AppRole;
+import com.github.chrisgleissner.microservice.springboot.security.auth.user.repo.AppUser;
 
 import java.util.List;
 
