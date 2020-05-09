@@ -1,5 +1,7 @@
 package com.github.chrisgleissner.microservice.springboot.employee;
 
+import com.github.chrisgleissner.microservice.springboot.security.annotation.IsAdmin;
+import com.github.chrisgleissner.microservice.springboot.security.annotation.IsUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,17 +24,19 @@ import java.util.Optional;
 public class EmployeeController {
 	private final EmployeeRepository employeeRepository;
 
+	@IsUser
 	@GetMapping("/{id}")
 	public Employee findById(@PathVariable Long id) {
 		return employeeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Can't find employee by ID " + id));
 	}
 
+	@IsUser
 	@GetMapping
 	public Iterable<Employee> findAll(@RequestParam(required=false) String lastName) {
 		return Optional.ofNullable(lastName).map(employeeRepository::findByLastname).orElseGet(employeeRepository::findAll);
 	}
 
-	@RolesAllowed("ROLE_ADMIN")
+	@IsAdmin
 	@PostMapping
 	public Employee create(@RequestBody Employee employee) {
 		Employee savedEmployee = employeeRepository.save(employee);

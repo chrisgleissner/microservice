@@ -1,6 +1,5 @@
 package com.github.chrisgleissner.microservice.springboot.security;
 
-import com.github.chrisgleissner.microservice.springboot.security.auth.AuthControllerConstants;
 import com.github.chrisgleissner.microservice.springboot.security.jwt.JwtManager;
 import com.github.chrisgleissner.microservice.springboot.security.jwt.JwtTokenAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
@@ -31,10 +30,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         // Open up Swagger
         web.ignoring().antMatchers(
-                // Authentication
-                AuthControllerConstants.AUTH_PATH + "/**",
-                // Swagger
+                // Unsecured endpoints
+                "/api/auth/**",
                 "/api/ping",
+                // Swagger
                 "/v3/api-docs/**",
                 "/swagger-ui/**",
                 "/swagger-ui.html",

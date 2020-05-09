@@ -7,7 +7,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static com.github.chrisgleissner.microservice.springboot.security.auth.AuthControllerConstants.JWTS_PATH;
 import static com.github.chrisgleissner.microservice.springboot.security.auth.user.UserConstants.ADMIN_APP_USER;
 import static com.github.chrisgleissner.microservice.springboot.security.auth.user.UserConstants.NORMAL_APP_USER;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,7 +23,7 @@ public class JwtFixture {
     }
 
     private static HttpHeaders jwt(TestRestTemplate testRestTemplate, String username, String password) {
-        ResponseEntity<String> responseEntity = testRestTemplate.postForEntity(JWTS_PATH,
+        ResponseEntity<String> responseEntity = testRestTemplate.postForEntity("/api/auth/jwts",
                 new UserCredentials(username, password), String.class);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         String jwt = responseEntity.getBody();
