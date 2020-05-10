@@ -1,4 +1,4 @@
-package com.github.chrisgleissner.microservice.springboot.security.jwt;
+package com.github.chrisgleissner.microservice.springboot.security.auth.jwt;
 
 import com.github.chrisgleissner.microservice.springboot.security.auth.domain.UserCredentials;
 import lombok.extern.slf4j.Slf4j;

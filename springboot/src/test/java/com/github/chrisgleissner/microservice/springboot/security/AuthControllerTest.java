@@ -8,7 +8,6 @@ import com.github.chrisgleissner.microservice.springboot.security.auth.domain.Au
 import com.github.chrisgleissner.microservice.springboot.security.auth.domain.UserCredentials;
 import com.github.chrisgleissner.microservice.springboot.security.auth.user.repo.AppUser;
 import com.github.chrisgleissner.microservice.springboot.security.auth.user.repo.AppUserRepo;
-import com.github.chrisgleissner.microservice.springboot.security.jwt.JwtUtil;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

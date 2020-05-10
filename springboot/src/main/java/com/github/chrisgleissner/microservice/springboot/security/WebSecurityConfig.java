@@ -1,7 +1,5 @@
 package com.github.chrisgleissner.microservice.springboot.security;
 
-import com.github.chrisgleissner.microservice.springboot.security.jwt.JwtManager;
-import com.github.chrisgleissner.microservice.springboot.security.jwt.JwtTokenAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -14,7 +12,7 @@ import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
 @EnableWebSecurity @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final JwtManager jwtManager;
+    private final JwtTokenAuthenticationFilter jwtTokenAuthenticationFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -22,7 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(SC_UNAUTHORIZED))
-                .and().addFilterAfter(new JwtTokenAuthenticationFilter(jwtManager), BasicAuthenticationFilter.class)
+                .and().addFilterAfter(jwtTokenAuthenticationFilter, BasicAuthenticationFilter.class)
                 .authorizeRequests().anyRequest().authenticated();
     }
 

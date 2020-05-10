@@ -1,4 +1,4 @@
-package com.github.chrisgleissner.microservice.springboot.company;
+package com.github.chrisgleissner.microservice.springboot.employee;
 
 import com.github.chrisgleissner.microservice.springboot.rest.RestIT;
 import org.junit.jupiter.api.Test;
@@ -8,23 +8,18 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDate;
+
+import static com.github.chrisgleissner.microservice.springboot.security.auth.jwt.JwtFixture.adminJwt;
 import static com.github.chrisgleissner.microservice.springboot.security.auth.jwt.JwtFixture.userJwt;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 
 @ExtendWith(SpringExtension.class) @RestIT
-class CompanyRepositoryIT {
-
-    @Autowired TestRestTemplate template;
-
-    @Test
-    void findAllReturnsHateaosResponse() {
-        ResponseEntity<String> response = template.exchange("/api/company", GET, new HttpEntity<>(userJwt(template)), String.class);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        String responseString = response.getBody();
-        assertThat(responseString).startsWith("{\n  \"_embedded\" : {");
-        assertThat(responseString).contains("Foo", "Bar");
-    }
+@TestPropertySource(properties = "security.jwt.encodeRolesInJwt=true")
+class EmployeeControllerRolesInJwtIT extends AbstractEmployeeControllerIT {
 }

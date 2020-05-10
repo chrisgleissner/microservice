@@ -1,6 +1,5 @@
-package com.github.chrisgleissner.microservice.springboot.security.jwt;
+package com.github.chrisgleissner.microservice.springboot.security.auth.jwt;
 
-import io.jsonwebtoken.Claims;
 import org.springframework.http.HttpHeaders;
 
 import java.util.Optional;
@@ -10,10 +9,6 @@ public interface JwtUtil {
     String AUTHORIZATION_HEADER_NAME = "Authorization";
     String AUTHORIZATION_TOKEN_PREFIX = "Bearer ";
     String AUTHORITIES_CLAIM = "authorities";
-
-    static String getUsername(Claims claims) {
-        return claims.getSubject();
-    }
 
     static HttpHeaders toHeader(String jwt) {
         HttpHeaders headers = new org.springframework.http.HttpHeaders();
