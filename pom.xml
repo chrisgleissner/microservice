@@ -12,5 +12,6 @@
         <module>wildfly</module>
         <module>quarkus</module>
         <module>jmeter</module>
+        <module>openfeign</module>
     </modules>
 </project>
