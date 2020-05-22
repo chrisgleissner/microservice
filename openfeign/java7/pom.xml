@@ -6,7 +6,7 @@
 
     <parent>
         <artifactId>microservice-parent</artifactId>
-        <groupId>com.github.chrisgleissner.microservice</groupId>
+        <groupId>com.github.chrisgleissner.openfeign</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
