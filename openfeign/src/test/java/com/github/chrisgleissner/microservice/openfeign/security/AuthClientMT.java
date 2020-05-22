@@ -2,7 +2,7 @@ package com.github.chrisgleissner.microservice.openfeign.security;
 
 import org.junit.Test;
 
-import static com.github.chrisgleissner.microservice.openfeign.OpenFeignTestConstants.SERVICE_URL;
+import static com.github.chrisgleissner.microservice.openfeign.TestConstants.SERVICE_URL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // TODO Start up service and rename to IT
