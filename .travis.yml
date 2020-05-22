@@ -9,7 +9,7 @@ cache:
     - $HOME/.m2
 env:
   - SCRIPT="mvn -f quarkus/pom.xml package"
-  - SCRIPT="mvn -pl :openfeign,:spring-boot install"
+  - SCRIPT="mvn -pl :openfeign,:springboot install"
   - SCRIPT="mvn -f wildfly/pom.xml package -Pwildfly"
   - SCRIPT="mvn -f wildfly/pom.xml package -Pdocker"
 script: $SCRIPT
