@@ -10,5 +10,5 @@ cache:
 env:
   - SCRIPT="mvn -f wildfly/pom.xml package -Pwildfly"
   - SCRIPT="mvn -f wildfly/pom.xml package -Pdocker"
-  - SCRIPT="mvn clean install"
+  - SCRIPT="mvn clean install -Pcoveralls coveralls:report"
 script: $SCRIPT
