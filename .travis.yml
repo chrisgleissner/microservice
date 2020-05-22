@@ -8,8 +8,6 @@ cache:
   directories:
     - $HOME/.m2
 env:
-  - SCRIPT="mvn -f quarkus/pom.xml package"
-  - SCRIPT="mvn -f openfeign/pom.xml install; mvn -f springboot/pom.xml package"
   - SCRIPT="mvn -f wildfly/pom.xml package -Pwildfly"
   - SCRIPT="mvn -f wildfly/pom.xml package -Pdocker"
   - SCRIPT="mvn clean install"
