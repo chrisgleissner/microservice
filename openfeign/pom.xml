@@ -9,5 +9,6 @@
 
     <modules>
         <module>java7</module>
+        <module>java11</module>
     </modules>
 </project>

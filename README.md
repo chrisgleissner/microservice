@@ -15,7 +15,7 @@ The aim is to provide the following features for all services:
 
 Implemented features:
 
-| Feature              | [Spring Boot](https://github.com/spring-projects/spring-boot) 2.3.0.M4 | [Quarkus](https://github.com/quarkusio/quarkus) 1.2.1.Final | [Wildfly](https://github.com/wildfly/wildfly) 18.0.1.Final |
+| Feature              | [Spring Boot](https://github.com/spring-projects/spring-boot) 2.3.0 | [Quarkus](https://github.com/quarkusio/quarkus) 1.4.2.Final | [Wildfly](https://github.com/wildfly/wildfly) 18.0.1.Final |
 |----------------------|---------------------------|--------------|---------------|
 | Ping REST API        | Yes (Spring Web)          | Yes (JAX-RS) | Yes (JAX-RS)  |
 | Company REST API     | Yes (Spring Data REST)    |              |               |
