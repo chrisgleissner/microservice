@@ -8,10 +8,10 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>openfeign</module>
         <module>springboot</module>
         <module>wildfly</module>
         <module>quarkus</module>
         <module>jmeter</module>
-        <module>openfeign</module>
     </modules>
 </project>

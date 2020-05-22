@@ -1,8 +1,8 @@
 logging:
   level:
-    root: INFO
-    org.springframework: INFO
-    org.springframework.web: INFO
+    root: WARN
+    org.springframework: WARN
+    org.springframework.web: WARN
 hibernate:
   cache:
     use_second_level_cache: true
@@ -15,6 +15,10 @@ server:
   servlet:
     context-path: /micro
 spring:
+  main:
+    banner-mode: off
+  jpa:
+    open-in-view: false
   data:
     rest:
       base-path: /api
