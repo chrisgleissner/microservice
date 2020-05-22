@@ -1,4 +1,4 @@
-package com.github.chrisgleissner.microservice.openfeign.employee;
+package com.github.chrisgleissner.microservice.openfeign.java7.employee;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.immutables.value.Value;

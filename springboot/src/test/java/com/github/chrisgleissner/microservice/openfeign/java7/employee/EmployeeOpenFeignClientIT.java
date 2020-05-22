@@ -1,7 +1,7 @@
-package com.github.chrisgleissner.microservice.openfeign.employee;
+package com.github.chrisgleissner.microservice.openfeign.java7.employee;
 
-import com.github.chrisgleissner.microservice.openfeign.FeignFactory;
-import com.github.chrisgleissner.microservice.openfeign.security.AuthFixture;
+import com.github.chrisgleissner.microservice.openfeign.java7.FeignFactory;
+import com.github.chrisgleissner.microservice.openfeign.java7.security.AuthFixture;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

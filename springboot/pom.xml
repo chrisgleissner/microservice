@@ -22,7 +22,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>openfeign</artifactId>
+            <artifactId>openfeign-java7</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

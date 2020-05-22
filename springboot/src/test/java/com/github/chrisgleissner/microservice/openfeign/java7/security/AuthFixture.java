@@ -1,6 +1,6 @@
-package com.github.chrisgleissner.microservice.openfeign.security;
+package com.github.chrisgleissner.microservice.openfeign.java7.security;
 
-import com.github.chrisgleissner.microservice.openfeign.FeignFactory;
+import com.github.chrisgleissner.microservice.openfeign.java7.FeignFactory;
 import feign.codec.StringDecoder;
 
 public class AuthFixture {

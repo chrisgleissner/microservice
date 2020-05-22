@@ -1,4 +1,4 @@
-package com.github.chrisgleissner.microservice.openfeign.security;
+package com.github.chrisgleissner.microservice.openfeign.java7.security;
 
 import org.immutables.value.Value;
 

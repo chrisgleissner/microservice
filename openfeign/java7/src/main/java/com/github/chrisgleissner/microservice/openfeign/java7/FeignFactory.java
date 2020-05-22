@@ -1,4 +1,4 @@
-package com.github.chrisgleissner.microservice.openfeign;
+package com.github.chrisgleissner.microservice.openfeign.java7;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
