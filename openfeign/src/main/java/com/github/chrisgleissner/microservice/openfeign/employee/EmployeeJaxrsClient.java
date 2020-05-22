@@ -8,7 +8,7 @@ import java.util.List;
 
 import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
-public interface EmployeeClientJaxrs {
+public interface EmployeeJaxrsClient {
     @GET @Path("/api/employee")
     List<Employee> findAll(@HeaderParam(AUTHORIZATION) String jwt);
 }
