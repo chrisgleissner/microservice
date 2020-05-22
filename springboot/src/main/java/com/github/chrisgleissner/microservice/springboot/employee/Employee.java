@@ -13,7 +13,8 @@ import java.time.LocalDate;
 
 @Entity
 @Value @AllArgsConstructor @NoArgsConstructor(force = true, access = AccessLevel.PACKAGE)
-public class Employee {
+public class
+Employee {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     String firstname;
     String lastname;
