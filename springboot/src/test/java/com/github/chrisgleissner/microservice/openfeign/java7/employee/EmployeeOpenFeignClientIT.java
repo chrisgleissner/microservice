@@ -6,15 +6,20 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.github.chrisgleissner.microservice.openfeign.TestConstants.SERVICE_URL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class EmployeeOpenFeignClientIT {
-    private static final String JWT = AuthFixture.getJwt(SERVICE_URL);
+    private static final String JWT = AuthFixture.getJwt();
 
     @Test
-    public void findAll() {
-        EmployeeClient client = FeignFactory.createClient(EmployeeClient.class, SERVICE_URL);
+    public void findAllViaLoadBalancer() {
+        for (int i = 0; i < 3; i++) {
+            assertFindAllWorks();
+        }
+    }
+
+    private void assertFindAllWorks() {
+        EmployeeClient client = FeignFactory.createClient(EmployeeClient.class);
         List<Employee> employees = client.findAll(JWT);
         assertThat(employees).isNotEmpty();
         for (Employee employee : employees) {

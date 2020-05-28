@@ -6,7 +6,9 @@
             </pattern>
         </encoder>
     </appender>
-    <root level="warn">
+    <logger name="com.netflix" level="debug"/>
+    <logger name="feign" level="debug"/>
+    <root level="info">
         <appender-ref ref="STDOUT"/>
     </root>
 </configuration>
