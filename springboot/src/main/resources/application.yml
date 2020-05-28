@@ -3,6 +3,11 @@ hibernate:
     use_second_level_cache: true
     region:
       factory_class: org.hibernate.cache.ehcache.internal.EhcacheRegionFactory
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 server:
   error:
     include-message: always
@@ -27,3 +32,11 @@ security:
     expiration: 3600
     secret: VerySecretJwtKey
     encodeRolesInJwt: true
+---
+spring:
+  profiles: production
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health,metrics

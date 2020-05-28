@@ -7,10 +7,13 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
+import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.env.Environment;
 
@@ -42,5 +45,11 @@ public class RestConfig {
     @EventListener(ApplicationReadyEvent.class)
     public void ready() {
         log.info("API docs at http://localhost:{}/micro/swagger-ui.html", environment.getProperty("local.server.port"));
+    }
+
+    // In Cluster deployments, use Spring Cloud Sleuth or similar; see https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.2-Release-Notes
+    @Bean @Profile("!production")
+    public HttpTraceRepository httpTraceRepository() {
+        return new InMemoryHttpTraceRepository();
     }
 }

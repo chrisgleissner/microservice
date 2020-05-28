@@ -29,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Open up Swagger
         web.ignoring().antMatchers(
                 // Unsecured endpoints
+                "/actuator/**",
                 "/api/auth/**",
                 "/api/ping",
                 // Swagger
