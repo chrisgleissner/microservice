@@ -1,8 +1,3 @@
-logging:
-  level:
-    root: WARN
-    org.springframework: WARN
-    org.springframework.web: WARN
 hibernate:
   cache:
     use_second_level_cache: true
@@ -24,6 +19,9 @@ spring:
       base-path: /api
   http:
     log-request-details: true
+  output:
+    ansi:
+      enabled: always
 security:
   jwt:
     expiration: 3600
