@@ -1,6 +1,7 @@
 package com.github.chrisgleissner.microservice.openfeign.java7.employee;
 
-import com.github.chrisgleissner.microservice.openfeign.java7.FeignFactory;
+import com.github.chrisgleissner.microservice.openfeign.java7.FeignClientFactory;
+import com.github.chrisgleissner.microservice.openfeign.java7.FeignClientUrls;
 import com.github.chrisgleissner.microservice.openfeign.java7.security.AuthFixture;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +20,7 @@ public class EmployeeOpenFeignClientIT {
     }
 
     private void assertFindAllWorks() {
-        EmployeeClient client = FeignFactory.createClient(EmployeeClient.class);
+        EmployeeClient client = FeignClientFactory.builder().build(EmployeeClient.class, FeignClientUrls.MICROSERVICE_URL);
         List<Employee> employees = client.findAll(JWT);
         assertThat(employees).isNotEmpty();
         for (Employee employee : employees) {
