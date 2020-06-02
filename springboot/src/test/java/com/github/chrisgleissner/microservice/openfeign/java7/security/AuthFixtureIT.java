@@ -17,7 +17,8 @@ class AuthFixtureIT {
 
     @Test
     void canGetJwt() {
-        // Property override at client construction time
+        // TODO The properties set here won't be picked up if another Archaicus-interacting test runs beforehand. Therefore use dynamic properties.
+        // TODO Add test that configures only unreachable servers and verify it fails
         Map<String, Object> properties = new HashMap<>();
         properties.put("microservice.ribbon.listOfServers", "localhost:8080,localhost:8079");
 
@@ -26,6 +27,5 @@ class AuthFixtureIT {
                 .build(AuthClient.class, FeignClientUrls.MICROSERVICE_URL);
         String jwt = authClient.getJwt(USER_CREDENTIALS);
         assertThat(jwt).isNotEmpty();
-
     }
 }
