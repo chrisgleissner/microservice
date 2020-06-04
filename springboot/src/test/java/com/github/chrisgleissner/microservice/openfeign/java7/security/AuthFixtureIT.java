@@ -1,6 +1,6 @@
 package com.github.chrisgleissner.microservice.openfeign.java7.security;
 
-import com.github.chrisgleissner.microservice.openfeign.java7.FeignClientFactory;
+import com.github.chrisgleissner.microservice.openfeign.java7.FeignClient;
 import com.github.chrisgleissner.microservice.openfeign.java7.FeignClientUrls;
 import feign.codec.StringDecoder;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ class AuthFixtureIT {
         Map<String, Object> properties = new HashMap<>();
         properties.put("microservice.ribbon.listOfServers", "localhost:8080,localhost:8079");
 
-        AuthClient authClient = FeignClientFactory.builder(properties)
+        AuthClient authClient = FeignClient.builder(properties)
                 .decoder(new StringDecoder())
                 .build(AuthClient.class, FeignClientUrls.MICROSERVICE_URL);
         String jwt = authClient.getJwt(USER_CREDENTIALS);

@@ -1,6 +1,6 @@
 package com.github.chrisgleissner.microservice.openfeign.java7.security;
 
-import com.github.chrisgleissner.microservice.openfeign.java7.FeignClientFactory;
+import com.github.chrisgleissner.microservice.openfeign.java7.FeignClient;
 import com.github.chrisgleissner.microservice.openfeign.java7.FeignClientUrls;
 import feign.codec.StringDecoder;
 import org.slf4j.Logger;
@@ -13,7 +13,7 @@ public class AuthFixture {
 
     public static String getJwt() {
         try {
-            AuthClient authClient = FeignClientFactory.builder().decoder(new StringDecoder()).build(AuthClient.class, FeignClientUrls.MICROSERVICE_URL);
+            AuthClient authClient = FeignClient.builder().decoder(new StringDecoder()).build(AuthClient.class, FeignClientUrls.MICROSERVICE_URL);
             return authClient.getJwt(ImmutableUserCredentials.builder().username(USER).password(SECRET).build());
         } catch (Exception e) {
             String msg = "Could not get JWT";
