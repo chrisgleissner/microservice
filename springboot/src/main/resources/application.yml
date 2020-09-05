@@ -1,3 +1,8 @@
+logging:
+  level:
+    root: INFO
+    io.netty: DEBUG
+    io.vertx: DEBUG
 hibernate:
   cache:
     use_second_level_cache: true
@@ -14,6 +19,8 @@ server:
     include-binding-errors: always
   servlet:
     context-path: /micro
+  port:
+    vertx: 8090
 spring:
   main:
     banner-mode: off

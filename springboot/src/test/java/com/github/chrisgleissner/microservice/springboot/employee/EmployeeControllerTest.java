@@ -31,6 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
+// TODO cg Changes introduced in https://github.com/spring-projects/spring-boot/issues/21801 break this test; upgrading beyond 2.3.0.RELEASE requires fix
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(EmployeeController.class)
 @SecurityAwareTest

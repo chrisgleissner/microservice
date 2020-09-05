@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // Unsecured endpoints
                 "/actuator/**",
                 "/api/auth/**",
-                "/api/ping",
+                "/api/ping/**",
                 // Swagger
                 "/v3/api-docs/**",
                 "/swagger-ui/**",

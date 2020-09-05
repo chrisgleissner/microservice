@@ -1,145 +1,152 @@
-# JVM Microservice Examples
 
-[![Build Status](https://travis-ci.com/chrisgleissner/microservice.svg?branch=master)](https://travis-ci.com/chrisgleissner/microservice)
+##############################################
+# Warm-up, concurrency 10
+##############################################
 
-This repository contains simple REST-based Java 11 microservices for Spring Boot, Quarkus and Wildfly. 
+==============================================
+Spring Web, concurrency 10
+http://localhost:8080/micro/api/ping
+==============================================
+This is ApacheBench, Version 2.3 <$Revision: 1807734 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
 
-The aim is to provide the following features for all services:
-* REST API for `company` and `employee` entities
-* DB schema generation
-* JWT-based Security
-* Unit and integration tests
-* Docker integration
+Benchmarking localhost (be patient)
 
-## Features
 
-Implemented features:
+Server Software:        
+Server Hostname:        localhost
+Server Port:            8080
 
-| Feature              | [Spring Boot](https://github.com/spring-projects/spring-boot) 2.3.0 | [Quarkus](https://github.com/quarkusio/quarkus) 1.4.2.Final | [Wildfly](https://github.com/wildfly/wildfly) 18.0.1.Final |
-|----------------------|---------------------------|--------------|---------------|
-| Ping REST API        | Yes (Spring Web)          | Yes (JAX-RS) | Yes (JAX-RS)  |
-| Company REST API     | Yes (Spring Data REST)    |              |               |
-| Employee REST API    | Yes (Spring Web)          | Yes (JAX-RS) |               |
-| DB schema generation | Yes (Flyway)              | Yes (Flyway) |               |
-| JWT Security         | Yes                       | Yes          |               |
-| Unit Tests           | Yes                       | Yes          |               |
-| Integration Tests    | Yes                       | Yes          | Yes           |
-| Swagger              | Yes                       | Yes          | Yes           |
-| Docker               | Yes                       |              | Yes           |
-| Vert.x               | Yes                       |              |               |
-| JMeter Benchmark     | Yes                       |              |               |
-| ab Benchmark         | Yes                       |              |               |
+Document Path:          /micro/api/ping
+Document Length:        24 bytes
 
-# Build
+Concurrency Level:      10
+Time taken for tests:   3.916 seconds
+Complete requests:      50000
+Failed requests:        0
+Keep-Alive requests:    49505
+Total transferred:      8885645 bytes
+HTML transferred:       1200000 bytes
+Requests per second:    12766.70 [#/sec] (mean)
+Time per request:       0.783 [ms] (mean)
+Time per request:       0.078 [ms] (mean, across all concurrent requests)
+Transfer rate:          2215.63 [Kbytes/sec] received
 
-Build with:
-```
-mvn clean install
-```
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.0      0       1
+Processing:     0    1   1.2      0      26
+Waiting:        0    1   1.2      0      26
+Total:          0    1   1.2      0      26
 
-For creating Docker images, first install a `docker` daemon and then build with:
-```
-mvn clean install -Pdocker
-```
+Percentage of the requests served within a certain time (ms)
+  50%      0
+  66%      1
+  75%      1
+  80%      1
+  90%      1
+  95%      2
+  98%      4
+  99%      7
+ 100%     26 (longest request)
 
-# Run
+==============================================
+Spring Webflux, concurrency 10
+http://localhost:8080/micro/api/ping/flux
+==============================================
+This is ApacheBench, Version 2.3 <$Revision: 1807734 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
 
-## Spring Boot
+Benchmarking localhost (be patient)
 
-```
-mvn -f springboot/pom.xml spring-boot:run
-```
 
-or, using Docker:
-```
-docker run -p8080:8080 microservice-springboot
-```
+Server Software:        
+Server Hostname:        localhost
+Server Port:            8080
 
-# Performance Test
+Document Path:          /micro/api/ping/flux
+Document Length:        24 bytes
 
-## JMeter
+Concurrency Level:      10
+Time taken for tests:   5.000 seconds
+Complete requests:      45514
+Failed requests:        0
+Keep-Alive requests:    45064
+Total transferred:      8088442 bytes
+HTML transferred:       1092336 bytes
+Requests per second:    9102.68 [#/sec] (mean)
+Time per request:       1.099 [ms] (mean)
+Time per request:       0.110 [ms] (mean, across all concurrent requests)
+Transfer rate:          1579.75 [Kbytes/sec] received
 
-First start service as described above, then run a JMeter benchmark against it using:
-```
-mvn -f jmeter/pom.xml clean install -Pjmeter
-```
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.0      0       0
+Processing:     0    1   1.9      1      62
+Waiting:        0    1   1.9      1      62
+Total:          0    1   1.9      1      62
 
-or using a custom configuration of up to 500 threads, ramped up in linear fashion using 5 steps over a duration of 60 seconds:
-```
-mvn -f jmeter/pom.xml clean install -Pjmeter -Djmeter.targetConcurrency=500 -Djmeter.rampUpSteps=5 -Djmeter.rampUpTime=60 
-```
+Percentage of the requests served within a certain time (ms)
+  50%      1
+  66%      1
+  75%      1
+  80%      1
+  90%      2
+  95%      3
+  98%      7
+  99%     10
+ 100%     62 (longest request)
 
-Then open the HTML results at [jmeter/target/jmeter/reports/test/index.html](file://jmeter/target/jmeter/reports/test/index.html).
+==============================================
+Vert.x, concurrency 10
+http://localhost:8090/micro/api/ping
+==============================================
+This is ApacheBench, Version 2.3 <$Revision: 1807734 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
 
-To edit the test plan, run
-```
-mvn -f jmeter/pom.xml jmeter:configure jmeter:gui -Pjmeter
-```
-and open `jmeter/src/test/jmeter/test.jmx`.
+Benchmarking localhost (be patient)
 
-## Flame Graphs
 
-see https://queue.acm.org/detail.cfm?id=2927301
+Server Software:        
+Server Hostname:        localhost
+Server Port:            8090
 
-### Async Profiler
+Document Path:          /micro/api/ping
+Document Length:        24 bytes
 
-Use Async Profiler to create Flame Graphs for Java:
-* Install https://github.com/jvm-profiling-tools/async-profiler
-* Allow collection of performance events by non-root users and resolve kernel symbols properly:
-```
-sudo sh -c 'echo kernel.perf_event_paranoid=1 >> /etc/sysctl.d/99-perf.conf'
-sudo sh -c 'echo kernel.kptr_restrict=0 >> /etc/sysctl.d/99-perf.conf'
-sudo sh -c 'sysctl --system'
-```
+Concurrency Level:      10
+Time taken for tests:   0.599 seconds
+Complete requests:      50000
+Failed requests:        0
+Keep-Alive requests:    50000
+Total transferred:      5950000 bytes
+HTML transferred:       1200000 bytes
+Requests per second:    83486.67 [#/sec] (mean)
+Time per request:       0.120 [ms] (mean)
+Time per request:       0.012 [ms] (mean, across all concurrent requests)
+Transfer rate:          9702.06 [Kbytes/sec] received
 
-Profile container from without:
-* For execution within Docker, download https://github.com/moby/moby/blob/master/profiles/seccomp/default.json, save
-as `seccomp-perf.json` and add `perf_event_open` to its `syscalls/names` section, then start Docker container:
-```
-docker run --security-opt seccomp=seccomp-perf.json
-```
-* Also see https://github.com/jvm-profiling-tools/async-profiler/blob/master/README.md#profiling-java-in-a-container
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.0      0       0
+Processing:     0    0   0.2      0      11
+Waiting:        0    0   0.2      0      11
+Total:          0    0   0.2      0      11
 
-Profile container from within:
-```
-docker ps | grep java
-docker exec -it <id> /bin/bash
-apt-get update && apt-get install -y wget && wget -c https://github.com/jvm-profiling-tools/async-profiler/releases/download/v1.7/async-profiler-1.7-linux-x64.tar.gz -O - | tar -xz
-./profiler.sh -d 30 -f flames.svg -i 999us 1
-```
+Percentage of the requests served within a certain time (ms)
+  50%      0
+  66%      0
+  75%      0
+  80%      0
+  90%      0
+  95%      0
+  98%      0
+  99%      0
+ 100%     11 (longest request)
 
-Example for a 30s flame graph recording of process ID `123`, sampling every 999 micros:
-```
-./profiler.sh -d 30 -f flames.svg -i 999us 123
-```
-
-## Benchmark
-
-Comparison of Vert.x, Spring Web, Spring Webflux with varying concurrency (1, 100, 1000 concurrent users).
-
-### Run
-
-To run the benchmarks, first start SpringBoot
-```
-mvn clean install
-cd springboot/bin
-./start-service.sh 
-```
-and then the benchmarks with
-```
-./benchmark.sh
-```
-
-### Results
-
-Config used:
-* Metal: Intel 6700K 4.5GHz with Windows 10 64Bit
-* VM: Xubuntu 18.04 in Virtualbox 6.1.12
-* JDK: OpenJDK 11.0.7 64Bit, SpringBoot started with `-Xmx128m-Xms128m`
-* Framework versions: Spring Boot 2.3.0.RELEASE, Vert.x Web 3.9.2
-
-Output from `benchmark.sh`:
-```
 ##############################################
 # Benchmark, concurrency 1
 ##############################################
@@ -153,12 +160,6 @@ Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
 Benchmarking localhost (be patient)
-Completed 5000 requests
-Completed 10000 requests
-Completed 15000 requests
-Completed 20000 requests
-Completed 25000 requests
-Finished 26696 requests
 
 
 Server Software:        
@@ -207,10 +208,6 @@ Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
 Benchmarking localhost (be patient)
-Completed 5000 requests
-Completed 10000 requests
-Completed 15000 requests
-Finished 16781 requests
 
 
 Server Software:        
@@ -259,17 +256,6 @@ Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
 Benchmarking localhost (be patient)
-Completed 5000 requests
-Completed 10000 requests
-Completed 15000 requests
-Completed 20000 requests
-Completed 25000 requests
-Completed 30000 requests
-Completed 35000 requests
-Completed 40000 requests
-Completed 45000 requests
-Completed 50000 requests
-Finished 50000 requests
 
 
 Server Software:        
@@ -322,17 +308,6 @@ Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
 Benchmarking localhost (be patient)
-Completed 5000 requests
-Completed 10000 requests
-Completed 15000 requests
-Completed 20000 requests
-Completed 25000 requests
-Completed 30000 requests
-Completed 35000 requests
-Completed 40000 requests
-Completed 45000 requests
-Completed 50000 requests
-Finished 50000 requests
 
 
 Server Software:        
@@ -381,16 +356,6 @@ Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
 Benchmarking localhost (be patient)
-Completed 5000 requests
-Completed 10000 requests
-Completed 15000 requests
-Completed 20000 requests
-Completed 25000 requests
-Completed 30000 requests
-Completed 35000 requests
-Completed 40000 requests
-Completed 45000 requests
-Finished 46307 requests
 
 
 Server Software:        
@@ -439,17 +404,6 @@ Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
 Benchmarking localhost (be patient)
-Completed 5000 requests
-Completed 10000 requests
-Completed 15000 requests
-Completed 20000 requests
-Completed 25000 requests
-Completed 30000 requests
-Completed 35000 requests
-Completed 40000 requests
-Completed 45000 requests
-Completed 50000 requests
-Finished 50000 requests
 
 
 Server Software:        
@@ -502,17 +456,6 @@ Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
 Benchmarking localhost (be patient)
-Completed 5000 requests
-Completed 10000 requests
-Completed 15000 requests
-Completed 20000 requests
-Completed 25000 requests
-Completed 30000 requests
-Completed 35000 requests
-Completed 40000 requests
-Completed 45000 requests
-Completed 50000 requests
-Finished 50000 requests
 
 
 Server Software:        
@@ -561,16 +504,6 @@ Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
 Benchmarking localhost (be patient)
-Completed 5000 requests
-Completed 10000 requests
-Completed 15000 requests
-Completed 20000 requests
-Completed 25000 requests
-Completed 30000 requests
-Completed 35000 requests
-Completed 40000 requests
-Completed 45000 requests
-Finished 46560 requests
 
 
 Server Software:        
@@ -619,17 +552,6 @@ Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
 Benchmarking localhost (be patient)
-Completed 5000 requests
-Completed 10000 requests
-Completed 15000 requests
-Completed 20000 requests
-Completed 25000 requests
-Completed 30000 requests
-Completed 35000 requests
-Completed 40000 requests
-Completed 45000 requests
-Completed 50000 requests
-Finished 50000 requests
 
 
 Server Software:        
@@ -668,4 +590,3 @@ Percentage of the requests served within a certain time (ms)
   98%     23
   99%     42
  100%     99 (longest request)
-```
