@@ -113,7 +113,7 @@ Example for a 30s flame graph recording of process ID `123`, sampling every 999 
 ./profiler.sh -d 30 -f flames.svg -i 999us 123
 ```
 
-## Benchmark
+## ab
 
 Comparison of Vert.x, Spring Web, Spring Webflux with varying concurrency (1, 100, 1000 concurrent users)
 using [ab](https://httpd.apache.org/docs/2.4/programs/ab.html).
