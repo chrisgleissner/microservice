@@ -139,6 +139,8 @@ Config used:
 * Framework versions: Spring Boot 2.3.0.RELEASE, Vert.x Web 3.9.2
 
 Output from `benchmark.sh`:
+
+#### Concurrency 1
 ```
 ##############################################
 # Benchmark, concurrency 1
@@ -308,7 +310,10 @@ Percentage of the requests served within a certain time (ms)
   98%      0
   99%      0
  100%     12 (longest request)
+```
 
+#### Concurrency 100
+```
 ##############################################
 # Benchmark, concurrency 100
 ##############################################
@@ -488,7 +493,10 @@ Percentage of the requests served within a certain time (ms)
   98%      3
   99%      5
  100%     15 (longest request)
+```
 
+#### Concurrency 1000
+```
 ##############################################
 # Benchmark, concurrency 1000
 ##############################################
